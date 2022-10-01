@@ -1,4 +1,4 @@
-#include "Input.h"
+#include "KeyInput.h"
 #include <algorithm>
 
 std::vector<KeyInput*> KeyInput::_instances;
@@ -34,8 +34,8 @@ void KeyInput::setIsKeyDown(int key, bool isDown) {
 	}
 }
 
-void KeyInput::setupKeyInputs(Window& window) {
-	glfwSetKeyCallback(window.sWindow, KeyInput::callback);
+void KeyInput::setupKeyInputs(Window* window) {
+	glfwSetKeyCallback(window->sWindow, KeyInput::callback);
 }
 
 void KeyInput::callback(GLFWwindow* window, int key, int scancode, int action, int mods) {

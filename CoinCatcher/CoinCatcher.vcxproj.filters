@@ -36,7 +36,10 @@
     <ClCompile Include="Game Logic\System\Window.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
-    <ClCompile Include="Game Logic\System\Input.cpp">
+    <ClCompile Include="Game Logic\System\KeyInput.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="Game Logic\System\KeyInputAdapter.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
   </ItemGroup>
@@ -65,7 +68,10 @@
     <ClInclude Include="Game Logic\System\Window.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
-    <ClInclude Include="Game Logic\System\Input.h">
+    <ClInclude Include="Game Logic\System\KeyInput.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="Game Logic\System\KeyInputAdapter.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
   </ItemGroup>

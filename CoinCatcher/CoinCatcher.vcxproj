@@ -128,7 +128,8 @@
     <ClCompile Include="Game Logic\Basic Logic\Game.cpp" />
     <ClCompile Include="Game Logic\Basic Logic\Player.cpp" />
     <ClCompile Include="Game Logic\Basic Logic\Transform.cpp" />
-    <ClCompile Include="Game Logic\System\Input.cpp" />
+    <ClCompile Include="Game Logic\System\KeyInput.cpp" />
+    <ClCompile Include="Game Logic\System\KeyInputAdapter.cpp" />
     <ClCompile Include="Game Logic\System\Window.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -140,7 +141,8 @@
     <ClInclude Include="Game Logic\Basic Logic\Player.h" />
     <ClInclude Include="Game Logic\Basic Logic\RgbImage.h" />
     <ClInclude Include="Game Logic\Basic Logic\Sprite.h" />
-    <ClInclude Include="Game Logic\System\Input.h" />
+    <ClInclude Include="Game Logic\System\KeyInput.h" />
+    <ClInclude Include="Game Logic\System\KeyInputAdapter.h" />
     <ClInclude Include="Game Logic\System\Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,7 +1,7 @@
 #pragma once
 #include "Entity.h"
 
-class Player : public Entity {
+class Player : public Entity{
 public:
 	float health;
 	float move_speed;

@@ -1,29 +1,25 @@
 #include <GLFW/glfw3.h>
 #include <stdio.h>
-#include <System/Window.h>
-#include <Basic Logic/Player.h>
+#include "System/Window.h"
+#include "System/KeyInput.h"
 
-static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
-{
-	if (key == GLFW_KEY_ESCAPE || action == GLFW_PRESS)
-		glfwSetWindowShouldClose(window, GLFW_TRUE);
-}
+//static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+//{
+//	if (key == GLFW_KEY_ESCAPE || action == GLFW_PRESS)
+//		glfwSetWindowShouldClose(window, GLFW_TRUE);
+//}
 
 int main(void)
 {
-	//GLFWwindow* window;
-	Window* window = &Window::instance();
-	window->CreateWindow(1280, 960);
-
 	/* Initialize the library */
 	if (!glfwInit())
 		return -1;
 
+	Window* window = &Window::instance();
+	window->CreateWindow(1280, 960);
 	
-	glfwSetKeyCallback(window->sWindow, key_callback);
-
-	/* Make the window's context current */
-	glfwMakeContextCurrent(window->sWindow);
+	// Initialize Input callback
+	KeyInput::setupKeyInputs(window);
 
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window->sWindow))
