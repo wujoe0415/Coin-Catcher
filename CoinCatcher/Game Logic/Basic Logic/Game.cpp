@@ -1,0 +1,184 @@
+#include "Game.h"
+#include <time.h>
+
+Game::Game() {
+	filename = _strdup("res/player2_2.bmp");
+	filename2 = _strdup("res/enemy_2.bmp");
+	filename3 = _strdup("res/bullet.bmp");
+	player = new Player(100, 100, filename, 10, 5);
+}
+
+void Game::setGameMode(unsigned int mode)
+{
+	int health = 100;
+	switch (mode) {
+	case 0: health = 120; break;
+	case 1: health = 100; break;
+	case 2: health = 80; break;
+	}
+	player->setHealth(health);
+}
+
+GLFWwindow* Window::sWindow = NULL;
+// found in OpenGL Game Development by Example just rewrote to be compatible with this program 
+void Game::SpawnCoin() {
+	Coin* coin = new Coin(70, 70, filename2, 10, 10, 1);
+
+	float marginX = coin->getWidth();
+	float marginY = coin->getHeight();
+
+	Window* temp = &Window::instance();
+	float spawnX = (rand() % temp->getWindowWidth - (marginX * 2)) + marginX;
+	float spawnY = temp->getWindowHeight - ((rand() % (int)(player->getHeight() - (marginY * 2))) + marginY);
+	delete(temp);
+
+	coin->setPositionX(spawnX);
+	coin->setPositionY(spawnY);
+
+	coins.push_back(coin);
+}
+
+
+void Game::MoveCoin() {
+	for (auto& coin : coins) {
+		coin->MoveDown();
+		coin->Rotation();
+	}
+}
+
+void Game::onKeyPressed(unsigned char key, int x, int y) {
+	switch (key) {
+	case 'a':
+		player->MoveLeft();
+		break;
+	case 'd':
+		player->MoveRight();
+		break;
+	case 033:
+		glutLeaveMainLoop();
+		break;
+	}
+}
+
+void Game::onMouseClicked(int button, int state, int x, int y) {
+	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
+		bullet = new Bullet(10, 10, 20, filename3, 0, 20);
+		bullet->setPositionX(player->getPositionX());
+		bullet->setPositionY(player->getPositionY());
+		double angle = atan2((float)y - player->getPositionY(), (float)x - player->getPositionX());
+		bullet->setAngle(angle);
+	}
+}
+
+void Game::onMouseMove(int x, int y) {
+	float angle = atan2((float)y - player->getPositionY(), (float)x - player->getPositionX()) * 180 / 3.15;
+	player->setAngle(angle);
+}
+
+void Game::timer(void(*t)(int)) {
+	if (bullet != nullptr) {
+		bullet->moveBullet();
+		if (bullet->getPositionX() > glutGet(GLUT_WINDOW_WIDTH) || bullet->getPositionY() > glutGet(GLUT_WINDOW_HEIGHT)) {
+			delete bullet;
+			bullet = nullptr;
+		}
+	}
+	if (enemy != nullptr) {
+		moveEnemy();
+	}
+
+	if (detectCollision(enemy, bullet)) {
+
+		enemy->setHealth(enemy->getHealth() - bullet->getDamage());
+		pushBack(bullet, enemy);
+		delete bullet;
+		bullet = nullptr;
+		if (enemy->getHealth() == 0) {
+			enemy = nullptr;
+			delete enemy;
+		}
+	}
+
+	if (detectCollision(player, enemy)) {
+		player->setHealth(player->getHealth() - enemy->getDamage());
+		pushBack(enemy, player);
+		if (player->getHealth() <= 0) {
+			exit(0);
+		}
+	}
+
+	glutPostRedisplay();
+	glutTimerFunc(1, t, 0);
+}
+
+void Game::Draw() {
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	player->draw();
+	if (bullet != nullptr) {
+		bullet->draw();
+	}
+	if (enemy == nullptr) {
+		SpawnEnemy();
+	}
+	else {
+		enemy->draw();
+	}
+	glutSwapBuffers();
+
+	glFlush();
+}
+
+// AABB (axis-aligned bounding box) collision
+bool Game::DetectCollision(Entity* entity1, Entity* entity2) {
+	if (entity2 == nullptr) {
+		return false;
+	}
+	bool collisionX = entity1->getPositionX() + entity1->getWidth() >= entity2->getPositionX() &&
+		entity2->getPositionX() + entity2->getWidth() >= entity1->getPositionX();
+	bool collisionY = entity1->getPositionY() + entity1->getHeight() >= entity2->getPositionY() &&
+		entity2->getPositionY() + entity2->getHeight() >= entity1->getPositionY();
+
+	return collisionX && collisionY;
+}
+
+void Game::PushBack(Entity* entity1, Entity* entity2) {
+	// push back to upper left corner
+	if (entity1->getPositionX() > entity2->getPositionX() && entity1->getPositionY() > entity2->getPositionY()) {
+		entity2->setPositionX(entity2->getPositionX() - 30);
+		entity2->setPositionY(entity2->getPositionY() - 30);
+	}
+	// puch back to lower left corner
+	if (entity1->getPositionX() > entity2->getPositionX() && entity1->getPositionY() < entity2->getPositionY()) {
+		entity2->setPositionX(entity2->getPositionX() - 30);
+		entity2->setPositionY(entity2->getPositionY() + 30);
+	}
+	// push back to upper right corner
+	if (entity1->getPositionX() < entity2->getPositionX() && entity1->getPositionY() > entity2->getPositionY()) {
+		entity2->setPositionX(entity2->getPositionX() + 30);
+		entity2->setPositionY(entity2->getPositionY() - 30);
+	}
+	// push back to lower right corner
+	if (entity1->getPositionX() < entity2->getPositionX() && entity1->getPositionY() < entity2->getPositionY()) {
+		entity2->setPositionX(entity2->getPositionX() + 30);
+		entity2->setPositionY(entity2->getPositionY() + 30);
+	}
+	// push up
+	if (entity1->getPositionX() == entity2->getPositionX() && entity1->getPositionY() > entity2->getPositionY()) {
+		entity2->setPositionY(entity2->getPositionY() - 30);
+	}
+
+	// push down
+	if (entity1->getPositionX() == entity2->getPositionX() && entity1->getPositionY() < entity2->getPositionY()) {
+		entity2->setPositionY(entity2->getPositionY() + 30);
+	}
+
+	// push right
+	if (entity1->getPositionX() < entity2->getPositionX() && entity1->getPositionY() == entity2->getPositionY()) {
+		entity2->setPositionX(entity2->getPositionX() + 30);
+	}
+
+	// push left
+	if (entity1->getPositionX() > entity2->getPositionX() && entity1->getPositionY() == entity2->getPositionY()) {
+		entity2->setPositionX(entity2->getPositionX() - 30);
+	}
+}
