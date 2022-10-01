@@ -1,7 +1,8 @@
 #pragma once
 #include "Entity.h"
+#include "System/KeyInput.h"
 
-class Player : public Entity{
+class Player : public Entity, public KeyInputAdapter{
 public:
 	float health;
 	float move_speed;
@@ -12,4 +13,7 @@ public:
 	void MoveLeft();
 	void setHealth(float);
 	float getHealth();
+
+	virtual void InputCreater();
+	virtual void InputHandler();
 };

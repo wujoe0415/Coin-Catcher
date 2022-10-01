@@ -35,9 +35,17 @@ void Player::MoveLeft() {
 void Player::MoveRight() {
 	x += move_speed;
 }
+void Player::InputCreater() {
+	inputList.push_back(GLFW_KEY_LEFT);
+	inputList.push_back(GLFW_KEY_A);
+	inputList.push_back(GLFW_KEY_RIGHT);
+	inputList.push_back(GLFW_KEY_D);
 
-static void player_key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
-{
-	if ((key == GLFW_KEY_A && key == GLFW_KEY_LEFT) || action == GLFW_PRESS)
-		glfwSetWindowShouldClose(window, GLFW_TRUE);
+	Input = new KeyInput(inputList);
+}
+void Player::InputHandler() {
+	if (Input->getIsKeyDown(GLFW_KEY_LEFT) || Input->getIsKeyDown(GLFW_KEY_A))
+		MoveLeft();
+	else if (Input->getIsKeyDown(GLFW_KEY_RIGHT) || Input->getIsKeyDown(GLFW_KEY_D))
+		MoveRight();
 }

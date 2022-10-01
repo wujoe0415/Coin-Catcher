@@ -39,9 +39,6 @@
     <ClCompile Include="Game Logic\System\KeyInput.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
-    <ClCompile Include="Game Logic\System\KeyInputAdapter.cpp">
-      <Filter>來源檔案</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game Logic\Basic Logic\IDrawable.h">

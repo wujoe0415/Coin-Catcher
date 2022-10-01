@@ -129,7 +129,6 @@
     <ClCompile Include="Game Logic\Basic Logic\Player.cpp" />
     <ClCompile Include="Game Logic\Basic Logic\Transform.cpp" />
     <ClCompile Include="Game Logic\System\KeyInput.cpp" />
-    <ClCompile Include="Game Logic\System\KeyInputAdapter.cpp" />
     <ClCompile Include="Game Logic\System\Window.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>

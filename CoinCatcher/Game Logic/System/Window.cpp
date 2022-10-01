@@ -45,7 +45,6 @@ Window& Window::instance()
 void Window::InputCreater() {
 	inputList.push_back(GLFW_KEY_ESCAPE);
 	Input = new KeyInput(inputList);
-	//Input->setupKeyInputs(this);
 }
 void Window::InputHandler() {
 	// repeat to check

@@ -23,6 +23,7 @@ void Coin::Draw() {
 	glPopMatrix();
 }
 void Coin::MoveDown() {
+	// move_speed += gravityAcceration
 	y += move_speed;
 
 	setPositionY(getPositionY());
