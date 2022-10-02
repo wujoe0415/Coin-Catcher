@@ -45,30 +45,17 @@ void Game::MoveCoin() {
 }
 
 void Game::timer(void(*t)(int)) {
-	if (bullet != nullptr) {
-		bullet->moveBullet();
-		if (bullet->getPositionX() > glutGet(GLUT_WINDOW_WIDTH) || bullet->getPositionY() > glutGet(GLUT_WINDOW_HEIGHT)) {
-			delete bullet;
-			bullet = nullptr;
-		}
-	}
-	if (enemy != nullptr) {
-		moveEnemy();
-	}
 
 	for (auto coin : coins) {
 		if (DetectCollision(player, coin)) {
-			CollectCoin();
-			player->setHealth(player->getHealth() - enemy->getDamage());
-			pushBack(enemy, player);
+			CollectCoin(coin);
+			player->setHealth(player->getHealth() - coin->damage);
 			if (player->getHealth() <= 0) {
+				// Lose
 				exit(0);
 			}
 		}
 	}
-
-	glutPostRedisplay();
-	glutTimerFunc(1, t, 0);
 }
 
 void Game::Draw() {

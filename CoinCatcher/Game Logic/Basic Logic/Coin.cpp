@@ -37,3 +37,6 @@ void Coin::Rotation() {
 	angle += mRotationSpeed;
 	setAngle(angle);
 }
+//void Coin::Update() {
+//
+//}

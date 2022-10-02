@@ -12,6 +12,7 @@ public:
 	void MoveDown();
 	void MoveUp();
 	void Rotation();
+	//virtual void Update();
 protected:
 	float mRotationSpeed;
 };

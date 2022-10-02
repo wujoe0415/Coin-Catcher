@@ -19,4 +19,5 @@ public:
 	virtual void setAngle(float);
 	virtual float getAngle();
 	virtual void Draw() = 0;
+	//virtual void Update() = 0;
 };

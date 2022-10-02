@@ -49,3 +49,6 @@ void Player::InputHandler() {
 	else if (Input->getIsKeyDown(GLFW_KEY_RIGHT) || Input->getIsKeyDown(GLFW_KEY_D))
 		MoveRight();
 }
+//void Player::Update() {
+	
+}

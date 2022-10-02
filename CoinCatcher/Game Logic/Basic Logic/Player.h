@@ -9,6 +9,7 @@ public:
 	Player(float, float, char*, float, float);
 	~Player() {};
 	void Draw();
+	//virtual void Update();
 	void MoveRight();
 	void MoveLeft();
 	void setHealth(float);
