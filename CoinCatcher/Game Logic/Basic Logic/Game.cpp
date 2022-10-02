@@ -2,9 +2,8 @@
 #include <time.h>
 
 Game::Game() {
-	/*filename = _strdup("res/player2_2.bmp");
-	filename2 = _strdup("res/enemy_2.bmp");
-	filename3 = _strdup("res/bullet.bmp");*/
+	filename = _strdup("../Resources/player.bmp");
+	filename2 = _strdup("Resources/coin.png");
 	player = new Player(100, 100, filename, 10, 5);
 	window = &Window::instance();
 }
@@ -46,16 +45,6 @@ void Game::MoveCoin() {
 
 void Game::timer(void(*t)(int)) {
 
-	for (auto coin : coins) {
-		if (DetectCollision(player, coin)) {
-			CollectCoin(coin);
-			player->setHealth(player->getHealth() - coin->damage);
-			if (player->getHealth() <= 0) {
-				// Lose
-				exit(0);
-			}
-		}
-	}
 }
 
 void Game::Draw() {
@@ -82,14 +71,48 @@ bool Game::DetectCollision(Entity* entity1, Entity* entity2) {
 
 	return collisionX && collisionY;
 }
-void Game::CollectCoin(Coin* collectableCoin) {
-	for (auto it = coins.begin(); it != coins.end();it = next(it)) {
-		if (collectableCoin == *it) {
-			coins.erase(it);
-			break;
-		}
+bool Game::FallBack(Entity* entity) {
+	return entity->getPositionY() + entity->getHeight() < player->getPositionY() + player->getHealth();
+}
+
+void Game::CollectCoin(Coin* coin) {
+}
+void Game::DropCoin(Coin* coin) {
+	player->setHealth(player->getHealth() - coin->damage);
+
+	if (player->getHealth() <= 0) { // Check Game Over
+		// Lose
+		exit(0);
 	}
-	free(&collectableCoin);
+}
+void Game::DeleteCoins(vector<int>& needDeletedIndex) {
+	for (int i = needDeletedIndex.size() - 1; i >= 0; i--) {
+		Coin* coin = coins[needDeletedIndex[i]];
+		coins.erase(coins.begin() + needDeletedIndex[i]);
+		free(coin);
+	}
 }
 void Game::PauseGame() {
+}
+void Game::GameLoop() {
+	if (rand() % 100 > 30)
+		SpawnCoin();
+
+	// Collision Detection
+	vector<int> deletedIndex;
+	for (int i = 0; i < coins.size();i++) {
+		if (DetectCollision(player, coins[i]))
+		{
+			CollectCoin(coins[i]);
+			deletedIndex.push_back(i);
+		}
+		else if (FallBack(coins[i])) {
+			DropCoin(coins[i]);
+			deletedIndex.push_back(i);
+		}
+	}
+	DeleteCoins(deletedIndex);
+
+	Draw();
+	// UI
 }

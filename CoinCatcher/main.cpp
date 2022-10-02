@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "System/Window.h"
 #include "System/KeyInput.h"
+#include "Basic Logic/Game.h"
 
 //static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 //{
@@ -20,6 +21,7 @@ int main(void)
 	
 	// Initialize Input callback
 	KeyInput::setupKeyInputs(window);
+	Game* CoinCatcher = new Game();
 
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window->sWindow))
@@ -27,12 +29,12 @@ int main(void)
 		/* Render here */
 		glClearColor(0.0f, 1.f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
-
 		/* Swap front and back buffers */
 		glfwSwapBuffers(window->sWindow);
-
 		/* Poll for and process events */
 		glfwPollEvents();
+
+		CoinCatcher->GameLoop();
 	}
 	glfwTerminate();
 	return 0;

@@ -13,7 +13,6 @@ class Game : IDrawable {
 private:
 	char* filename;
 	char* filename2;
-	char* filename3;
 	Player* player;
 	vector<Coin*> coins;
 	Window* window;
@@ -23,8 +22,12 @@ public:
 	void timer(void(*t)(int));
 	void Draw();
 	bool DetectCollision(Entity* entity1, Entity* entity2);
+	bool FallBack(Entity*);
 	void SpawnCoin();
 	void MoveCoin();
 	void CollectCoin(Coin*);
+	void DropCoin(Coin*);
+	void DeleteCoins(vector<int>&);
+	void GameLoop();
 	void PauseGame();
 };
