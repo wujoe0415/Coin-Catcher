@@ -36,6 +36,7 @@ public:
 	RgbImage(int numRows, int numCols);	// Initialize a blank bitmap of this size.
 	~RgbImage();
 
+	bool LoadFile(const char* filepath);
 	bool LoadBmpFile(const char* filename);		// Loads the bitmap from the specified file
 	bool WriteBmpFile(const char* filename);		// Write the bitmap to the specified file
 #ifndef RGBIMAGE_DONT_USE_OPENGL
@@ -148,6 +149,5 @@ inline void RgbImage::Reset() {
 	ImagePtr = 0;
 	ErrorCode = 0;
 }
-
 
 #endif

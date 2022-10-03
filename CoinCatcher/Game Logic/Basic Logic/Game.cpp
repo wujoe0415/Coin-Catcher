@@ -1,9 +1,11 @@
 #include "Game.h"
 #include <time.h>
+#include "System/Resource_Manager.h"
 
 Game::Game() {
-	filename = _strdup("../Resources/player.bmp");
-	filename2 = _strdup("Resources/coin.png");
+	ResourceManager::LoadTexture("../../Resources/Sprite/player.bmp", false, "player");
+	ResourceManager::LoadTexture("../../Resources/Sprite/coin.png", false, "coin");
+	
 	player = new Player(100, 100, filename, 10, 5);
 	window = &Window::instance();
 }
@@ -107,8 +109,8 @@ void Game::GameLoop() {
 			deletedIndex.push_back(i);
 		}
 		else if (FallBack(coins[i])) {
-			DropCoin(coins[i]);
-			deletedIndex.push_back(i);
+			//DropCoin(coins[i]);
+			//deletedIndex.push_back(i);
 		}
 	}
 	DeleteCoins(deletedIndex);

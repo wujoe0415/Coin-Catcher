@@ -84,7 +84,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\GLFW\GLFW Project\Coin Catcher\CoinCatcher\Game Logic;D:\GLFW\glfw-3.3.8.bin.WIN64\glfw-3.3.8.bin.WIN64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\GLFW\glfw-3.3.8.bin.WIN64\glfw-3.3.8.bin.WIN64\include;D:\GLFW\glad\include;D:\GLFW\GLFW Project\Coin Catcher\CoinCatcher\Game Logic;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>D:\GLFW\glfw-3.3.8.bin.WIN64\glfw-3.3.8.bin.WIN64\lib-vc2022;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -113,7 +113,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\GLFW\GLFW Project\Coin Catcher\CoinCatcher\Game Logic;D:\GLFW\glfw-3.3.8.bin.WIN64\glfw-3.3.8.bin.WIN64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\GLFW\glfw-3.3.8.bin.WIN64\glfw-3.3.8.bin.WIN64\include;D:\GLFW\glad\include;D:\GLFW\GLFW Project\Coin Catcher\CoinCatcher\Game Logic;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -126,9 +126,14 @@
     <ClCompile Include="Game Logic\Basic Logic\Coin.cpp" />
     <ClCompile Include="Game Logic\Basic Logic\Entity.cpp" />
     <ClCompile Include="Game Logic\Basic Logic\Game.cpp" />
+    <ClCompile Include="Game Logic\Basic Logic\Ground.cpp" />
     <ClCompile Include="Game Logic\Basic Logic\Player.cpp" />
-    <ClCompile Include="Game Logic\Basic Logic\Transform.cpp" />
+    <ClCompile Include="Game Logic\Basic Logic\RgbImage.cpp" />
+    <ClCompile Include="Game Logic\Basic Logic\Sprite.cpp" />
     <ClCompile Include="Game Logic\System\KeyInput.cpp" />
+    <ClCompile Include="Game Logic\System\KeyInputAdapter.cpp" />
+    <ClCompile Include="Game Logic\System\Resource_Manager.cpp" />
+    <ClCompile Include="Game Logic\System\Texture.cpp" />
     <ClCompile Include="Game Logic\System\Window.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -136,13 +141,21 @@
     <ClInclude Include="Game Logic\Basic Logic\Coin.h" />
     <ClInclude Include="Game Logic\Basic Logic\Entity.h" />
     <ClInclude Include="Game Logic\Basic Logic\Game.h" />
+    <ClInclude Include="Game Logic\Basic Logic\Ground.h" />
     <ClInclude Include="Game Logic\Basic Logic\IDrawable.h" />
     <ClInclude Include="Game Logic\Basic Logic\Player.h" />
     <ClInclude Include="Game Logic\Basic Logic\RgbImage.h" />
     <ClInclude Include="Game Logic\Basic Logic\Sprite.h" />
     <ClInclude Include="Game Logic\System\KeyInput.h" />
     <ClInclude Include="Game Logic\System\KeyInputAdapter.h" />
+    <ClInclude Include="Game Logic\System\Resource_Manager.h" />
+    <ClInclude Include="Game Logic\System\stb_image.h" />
+    <ClInclude Include="Game Logic\System\Texture.h" />
     <ClInclude Include="Game Logic\System\Window.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\Sprites\coin.png" />
+    <Image Include="Resources\Sprites\player.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

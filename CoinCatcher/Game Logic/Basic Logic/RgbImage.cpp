@@ -19,6 +19,7 @@
  */
 
 #include "RgbImage.h"
+#include "System/stb_image.h"
 
 #ifndef RGBIMAGE_DONT_USE_OPENGL
 #include <GLFW/glfw3.h>
@@ -54,6 +55,25 @@ RgbImage::RgbImage(int numRows, int numCols) {
  *  Author: Sam Buss December 2001.
  **********************************************************************/
 
+bool RgbImage::LoadFile(const char* filepath) {
+	int width;
+	int height;
+	int nrChannels;
+	stbi_uc *pixels = stbi_load(filepath, &width, &height, &nrChannels, 0);
+
+	if (pixels == NULL) {
+		// TODO: Log this..
+		return false;
+	}
+
+	glBindTexture(GL_TEXTURE_2D, mName);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+
+	stbi_image_free(pixels);
+	return true;
+}
 bool RgbImage::LoadBmpFile(const char* filename) {
 	Reset();
 	FILE* infile = fopen(filename, "rb");		// Open for reading binary data

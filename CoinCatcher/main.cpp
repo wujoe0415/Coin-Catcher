@@ -19,15 +19,17 @@ int main(void)
 	Window* window = &Window::instance();
 	window->CreateWindow(1280, 960);
 	
+	Game* CoinCatcher = new Game();
+	CoinCatcher->setGameMode(1);
+
 	// Initialize Input callback
 	KeyInput::setupKeyInputs(window);
-	Game* CoinCatcher = new Game();
 
 	/* Loop until the user closes the window */
 	while (!glfwWindowShouldClose(window->sWindow))
 	{
 		/* Render here */
-		glClearColor(0.0f, 1.f, 0.0f, 1.0f);
+		glClearColor(0.0f, 0.f, 1.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 		/* Swap front and back buffers */
 		glfwSwapBuffers(window->sWindow);

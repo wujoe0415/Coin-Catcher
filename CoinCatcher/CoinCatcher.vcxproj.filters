@@ -18,9 +18,6 @@
     <ClCompile Include="main.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
-    <ClCompile Include="Game Logic\Basic Logic\Transform.cpp">
-      <Filter>來源檔案</Filter>
-    </ClCompile>
     <ClCompile Include="Game Logic\Basic Logic\Entity.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
@@ -37,6 +34,24 @@
       <Filter>來源檔案</Filter>
     </ClCompile>
     <ClCompile Include="Game Logic\System\KeyInput.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="Game Logic\Basic Logic\Ground.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="Game Logic\Basic Logic\Sprite.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="Game Logic\Basic Logic\RgbImage.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="Game Logic\System\Texture.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="Game Logic\System\Resource_Manager.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="Game Logic\System\KeyInputAdapter.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
   </ItemGroup>
@@ -71,5 +86,25 @@
     <ClInclude Include="Game Logic\System\KeyInputAdapter.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
+    <ClInclude Include="Game Logic\Basic Logic\Ground.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="Game Logic\System\Texture.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="Game Logic\System\stb_image.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="Game Logic\System\Resource_Manager.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\Sprites\coin.png">
+      <Filter>資源檔</Filter>
+    </Image>
+    <Image Include="Resources\Sprites\player.bmp">
+      <Filter>資源檔</Filter>
+    </Image>
   </ItemGroup>
 </Project>
