@@ -28,8 +28,8 @@ int main(void)
 	// Initialize Input callback
 	//KeyInput::setupKeyInputs(*window);
 
-	glfwMakeContextCurrent(window->sWindow);
 	/* Loop until the user closes the window */
+	std::cout << window->sWindow;
 	while (!glfwWindowShouldClose(window->sWindow))
 	{
 		/* Render here */

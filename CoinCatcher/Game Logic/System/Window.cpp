@@ -31,8 +31,11 @@ void Window::CreateWindow(int width, int height) {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 
 	sWindow = glfwCreateWindow(width, height, "Coin Catcher", NULL, NULL);
+
 	if (!sWindow)
 		glfwTerminate();
+
+	glfwMakeContextCurrent(sWindow);
 
 }
 void Window::ResizeWindow(int width, int height) {
