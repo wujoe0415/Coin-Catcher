@@ -84,11 +84,14 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\GLFW\glfw-3.3.8.bin.WIN64\glfw-3.3.8.bin.WIN64\include;D:\GLFW\glad\include;D:\GLFW\GLFW Project\Coin Catcher\CoinCatcher\Game Logic;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\GLFW\glm-0.9.9.8\glm;D:\GLFW\glfw-3.3.8.bin.WIN64\glfw-3.3.8.bin.WIN64\include;D:\GLFW\glad\include;D:\GLFW\GLFW Project\Coin Catcher\CoinCatcher\Game Logic</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>GLFW_INCLUDE_NONE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>D:\GLFW\glfw-3.3.8.bin.WIN64\glfw-3.3.8.bin.WIN64\lib-vc2022;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\GLFW\glfw-3.3.8.bin.WIN64\glfw-3.3.8.bin.WIN64\lib-vc2017</AdditionalLibraryDirectories>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;user32.lib;gdi32.lib;shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -113,26 +116,30 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\GLFW\glfw-3.3.8.bin.WIN64\glfw-3.3.8.bin.WIN64\include;D:\GLFW\glad\include;D:\GLFW\GLFW Project\Coin Catcher\CoinCatcher\Game Logic;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\GLFW\glm-0.9.9.8\glm;D:\GLFW\glfw-3.3.8.bin.WIN64\glfw-3.3.8.bin.WIN64\include;D:\GLFW\glad\include;D:\GLFW\GLFW Project\Coin Catcher\CoinCatcher\Game Logic</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>GLFW_INCLUDE_NONE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>D:\GLFW\glfw-3.3.8.bin.WIN64\glfw-3.3.8.bin.WIN64\lib-vc2022;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\GLFW\glfw-3.3.8.bin.WIN64\glfw-3.3.8.bin.WIN64\lib-vc2017</AdditionalLibraryDirectories>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;user32.lib;gdi32.lib;shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Game Logic\Basic Logic\Coin.cpp" />
     <ClCompile Include="Game Logic\Basic Logic\Entity.cpp" />
     <ClCompile Include="Game Logic\Basic Logic\Game.cpp" />
-    <ClCompile Include="Game Logic\Basic Logic\Ground.cpp" />
     <ClCompile Include="Game Logic\Basic Logic\Player.cpp" />
-    <ClCompile Include="Game Logic\Basic Logic\RgbImage.cpp" />
-    <ClCompile Include="Game Logic\Basic Logic\Sprite.cpp" />
+    <ClCompile Include="Game Logic\System\glad.c" />
     <ClCompile Include="Game Logic\System\KeyInput.cpp" />
-    <ClCompile Include="Game Logic\System\KeyInputAdapter.cpp" />
     <ClCompile Include="Game Logic\System\Resource_Manager.cpp" />
+    <ClCompile Include="Game Logic\System\Shader.cpp" />
+    <ClCompile Include="Game Logic\System\Sprite.cpp" />
+    <ClCompile Include="Game Logic\System\Sprite_Renderer.cpp" />
+    <ClCompile Include="Game Logic\System\stb_image.cpp" />
     <ClCompile Include="Game Logic\System\Texture.cpp" />
     <ClCompile Include="Game Logic\System\Window.cpp" />
     <ClCompile Include="main.cpp" />
@@ -141,14 +148,13 @@
     <ClInclude Include="Game Logic\Basic Logic\Coin.h" />
     <ClInclude Include="Game Logic\Basic Logic\Entity.h" />
     <ClInclude Include="Game Logic\Basic Logic\Game.h" />
-    <ClInclude Include="Game Logic\Basic Logic\Ground.h" />
-    <ClInclude Include="Game Logic\Basic Logic\IDrawable.h" />
+    <ClInclude Include="Game Logic\System\IDrawable.h" />
     <ClInclude Include="Game Logic\Basic Logic\Player.h" />
-    <ClInclude Include="Game Logic\Basic Logic\RgbImage.h" />
-    <ClInclude Include="Game Logic\Basic Logic\Sprite.h" />
     <ClInclude Include="Game Logic\System\KeyInput.h" />
-    <ClInclude Include="Game Logic\System\KeyInputAdapter.h" />
     <ClInclude Include="Game Logic\System\Resource_Manager.h" />
+    <ClInclude Include="Game Logic\System\Shader.h" />
+    <ClInclude Include="Game Logic\System\Sprite.h" />
+    <ClInclude Include="Game Logic\System\Sprite_Renderer.h" />
     <ClInclude Include="Game Logic\System\stb_image.h" />
     <ClInclude Include="Game Logic\System\Texture.h" />
     <ClInclude Include="Game Logic\System\Window.h" />

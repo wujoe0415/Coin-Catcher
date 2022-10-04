@@ -13,6 +13,7 @@ Sprite::Sprite(float width, float height, char* filename)
 	angle = 0;
 	origoX = width / 2;
 	origoY = height / 2;
+	initTexture(filename);
 }
 
 Sprite::~Sprite() {}
@@ -22,13 +23,14 @@ void Sprite::loadTextureFromFile(char* filename) {
 	glShadeModel(GL_FLAT);
 	glEnable(GL_DEPTH_TEST);
 
-	RgbImage theTexMap(filename);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
-	glBindTexture(GL_TEXTURE_2D, 0);
+	glBindTexture(GL_TEXTURE_2D, textureName);
+
+	Texture = ResourceManager::GetTexture(filename);
 }
 
 void Sprite::initTexture(char* filename) {

@@ -1,7 +1,8 @@
 #include "Coin.h"
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-Coin::Coin(float width, float height, char* textureLocation, float moveSpeed, float rotationSpeed, float coin_damage) :Entity(width, height, textureLocation) {
+Coin::Coin(float width, float height, char* textureLocation, float moveSpeed, float rotationSpeed, int coin_damage) :Entity(width, height, textureLocation) {
 	sprite = new Sprite(width, height, textureLocation);
 	x = 100;
 	y = 100;

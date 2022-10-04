@@ -1,10 +1,9 @@
 #pragma once
 #include <GLFW/glfw3.h>
-#include "KeyInputAdapter.h"
 
-class Window : public KeyInputAdapter{
+class Window{
 public:
-	static Window& instance();
+	static Window& getInstance();
 
 	static GLFWwindow* sWindow;
 	void CreateWindow(int, int);
@@ -12,9 +11,6 @@ public:
 	void ResizeWindow(int, int);
 	int getWindowWidth();
 	int getWindowHeight();
-
-	virtual void InputCreater();
-	virtual void InputHandler();
 
 private:
 	Window();

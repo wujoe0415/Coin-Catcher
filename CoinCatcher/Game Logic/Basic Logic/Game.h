@@ -1,11 +1,13 @@
 #pragma once
 #include <iostream>
 #include <vector>
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include "Entity.h"
 #include "Player.h"
 #include "Coin.h"
 #include "System/Window.h"
+#include "System/Resource_Manager.h"
 
 using namespace std;
 

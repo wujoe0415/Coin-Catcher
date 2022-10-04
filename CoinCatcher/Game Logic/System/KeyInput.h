@@ -6,6 +6,7 @@
 
 using namespace std;
 
+
 class KeyInput {
 	// Main KeyInput functionality
 public:
@@ -29,7 +30,7 @@ private:
 	// Workaround for C++ class using a c-style-callback
 public:
 	// Must be called before any KeyInput instances will work
-	static void setupKeyInputs(Window*);
+	static void setupKeyInputs(Window&);
 private:
 	// The GLFW callback for key events.  Sends events to all KeyInput instances
 	static void callback(

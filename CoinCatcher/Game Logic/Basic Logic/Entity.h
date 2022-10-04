@@ -1,6 +1,6 @@
 #pragma once
-#include "IDrawable.h"
-#include "Sprite.h"
+#include "System/IDrawable.h"
+#include "System/Sprite.h"
 
 class Entity : public IDrawable {
 protected:

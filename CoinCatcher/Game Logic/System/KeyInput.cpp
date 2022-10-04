@@ -1,6 +1,7 @@
 #include "KeyInput.h"
 #include <algorithm>
 
+
 std::vector<KeyInput*> KeyInput::_instances;
 
 KeyInput::KeyInput(std::vector<int> keysToMonitor) : _isEnabled(true) {
@@ -34,8 +35,8 @@ void KeyInput::setIsKeyDown(int key, bool isDown) {
 	}
 }
 
-void KeyInput::setupKeyInputs(Window* window) {
-	glfwSetKeyCallback(window->sWindow, KeyInput::callback);
+void KeyInput::setupKeyInputs(Window& window) {
+	glfwSetKeyCallback(window.sWindow, KeyInput::callback);
 }
 
 void KeyInput::callback(GLFWwindow* window, int key, int scancode, int action, int mods) {

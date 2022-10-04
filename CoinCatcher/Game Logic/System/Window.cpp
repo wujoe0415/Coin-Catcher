@@ -34,23 +34,17 @@ void Window::CreateWindow(int width, int height) {
 	if (!sWindow)
 		glfwTerminate();
 
-	glfwMakeContextCurrent(sWindow);
 }
-Window& Window::instance()
+void Window::ResizeWindow(int width, int height) {
+	
+}
+Window& Window::getInstance()
 {
 	static Window sInstance;
 	return sInstance;
 }
 
-void Window::InputCreater() {
-	inputList.push_back(GLFW_KEY_ESCAPE);
-	Input = new KeyInput(inputList);
-}
-void Window::InputHandler() {
-	// repeat to check
-	if(Input->getIsKeyDown(GLFW_KEY_ESCAPE))
-		glfwSetWindowShouldClose(sWindow, GLFW_TRUE);
-}
 Window::Window() {
-	InputCreater();
 }
+
+GLFWwindow* Window::sWindow;

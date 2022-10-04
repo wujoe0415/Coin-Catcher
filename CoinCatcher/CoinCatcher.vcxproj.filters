@@ -36,36 +36,30 @@
     <ClCompile Include="Game Logic\System\KeyInput.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
-    <ClCompile Include="Game Logic\Basic Logic\Ground.cpp">
-      <Filter>來源檔案</Filter>
-    </ClCompile>
-    <ClCompile Include="Game Logic\Basic Logic\Sprite.cpp">
-      <Filter>來源檔案</Filter>
-    </ClCompile>
-    <ClCompile Include="Game Logic\Basic Logic\RgbImage.cpp">
-      <Filter>來源檔案</Filter>
-    </ClCompile>
     <ClCompile Include="Game Logic\System\Texture.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
     <ClCompile Include="Game Logic\System\Resource_Manager.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
-    <ClCompile Include="Game Logic\System\KeyInputAdapter.cpp">
+    <ClCompile Include="Game Logic\System\glad.c">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="Game Logic\System\Sprite_Renderer.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="Game Logic\System\Shader.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="Game Logic\System\Sprite.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="Game Logic\System\stb_image.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game Logic\Basic Logic\IDrawable.h">
-      <Filter>標頭檔</Filter>
-    </ClInclude>
     <ClInclude Include="Game Logic\Basic Logic\Entity.h">
-      <Filter>標頭檔</Filter>
-    </ClInclude>
-    <ClInclude Include="Game Logic\Basic Logic\Sprite.h">
-      <Filter>標頭檔</Filter>
-    </ClInclude>
-    <ClInclude Include="Game Logic\Basic Logic\RgbImage.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
     <ClInclude Include="Game Logic\Basic Logic\Player.h">
@@ -83,12 +77,6 @@
     <ClInclude Include="Game Logic\System\KeyInput.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
-    <ClInclude Include="Game Logic\System\KeyInputAdapter.h">
-      <Filter>標頭檔</Filter>
-    </ClInclude>
-    <ClInclude Include="Game Logic\Basic Logic\Ground.h">
-      <Filter>標頭檔</Filter>
-    </ClInclude>
     <ClInclude Include="Game Logic\System\Texture.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
@@ -96,6 +84,18 @@
       <Filter>標頭檔</Filter>
     </ClInclude>
     <ClInclude Include="Game Logic\System\Resource_Manager.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="Game Logic\System\Sprite_Renderer.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="Game Logic\System\Shader.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="Game Logic\System\Sprite.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="Game Logic\System\IDrawable.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
   </ItemGroup>

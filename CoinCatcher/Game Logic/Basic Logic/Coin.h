@@ -4,9 +4,9 @@
 class Coin : public Entity {
 public:
 	float move_speed;
-	float damage;
+	int damage;
 
-	Coin(float, float, char*, float, float, float);
+	Coin(float, float, char*, float, float, int);
 	~Coin() {};
 	void Draw();
 	void MoveDown();

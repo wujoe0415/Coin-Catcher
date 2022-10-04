@@ -2,19 +2,17 @@
 #include "Entity.h"
 #include "System/KeyInput.h"
 
-class Player : public Entity, public KeyInputAdapter{
+class Player : public Entity{
 public:
-	float health;
+	int health;
 	float move_speed;
-	Player(float, float, char*, float, float);
+	Player(float, float, char*, float, int);
 	~Player() {};
 	void Draw();
 	//virtual void Update();
 	void MoveRight();
 	void MoveLeft();
-	void setHealth(float);
-	float getHealth();
+	void setHealth(int);
+	int getHealth();
 
-	virtual void InputCreater();
-	virtual void InputHandler();
 };

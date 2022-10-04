@@ -1,7 +1,9 @@
 #pragma once
 
 #include "IDrawable.h"
-#include "RgbImage.h"
+#include <glad/glad.h>
+#include <System/Sprite_Renderer.h>
+#include "System/Resource_Manager.h"
 
 class Sprite : IDrawable {
 private:
@@ -13,6 +15,7 @@ private:
 	char* filename;
 	void loadTextureFromFile(char*);
 	void initTexture(char*);
+	Texture2D   Texture;
 
 public:
 	Sprite(float, float, float, float, char*);

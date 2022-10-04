@@ -1,13 +1,12 @@
 #include "Game.h"
 #include <time.h>
-#include "System/Resource_Manager.h"
 
 Game::Game() {
 	ResourceManager::LoadTexture("../../Resources/Sprite/player.bmp", false, "player");
 	ResourceManager::LoadTexture("../../Resources/Sprite/coin.png", false, "coin");
 	
 	player = new Player(100, 100, filename, 10, 5);
-	window = &Window::instance();
+	window = &Window::getInstance();
 }
 
 void Game::setGameMode(unsigned int mode)
@@ -28,8 +27,8 @@ void Game::SpawnCoin() {
 	float marginX = coin->getWidth();
 	float marginY = coin->getHeight();
 
-	float spawnX = (rand() % window->getWindowWidth - (marginX * 2)) + marginX;
-	float spawnY = window->getWindowHeight - ((rand() % (int)(player->getHeight() - (marginY * 2))) + marginY);
+	float spawnX = (rand() % window->getWindowWidth() - (marginX * 2)) + marginX;
+	float spawnY = window->getWindowHeight() - ((rand() % (int)(player->getHeight() - (marginY * 2))) + marginY);
 
 	coin->setPositionX(spawnX);
 	coin->setPositionY(spawnY);
