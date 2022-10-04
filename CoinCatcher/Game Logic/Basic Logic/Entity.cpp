@@ -1,7 +1,7 @@
 #include "Entity.h"
 #include <iostream>
 
-Entity::Entity(float width, float height, char* textureLocation)
+Entity::Entity(float width, float height, std::string textureLocation)
 	: width(width), height(height){
 
 	sprite = new Sprite(width, height, textureLocation);

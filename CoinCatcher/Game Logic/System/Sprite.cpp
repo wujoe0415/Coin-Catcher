@@ -1,14 +1,15 @@
 #include "Sprite.h"
 #include <iostream>
 
-Sprite::Sprite(float x, float y, float width, float height, char* filename)
+Sprite::Sprite(float x, float y, float width, float height, std::string filename)
 	: x(x), y(y), width(width), height(height), filename(filename) {
 	angle = 0;
 	origoX = width / 2;
 	origoY = height / 2;
+	initTexture(filename);
 }
 
-Sprite::Sprite(float width, float height, char* filename)
+Sprite::Sprite(float width, float height, std::string filename)
 	: width(width), height(height), filename(filename) {
 	angle = 0;
 	origoX = width / 2;
@@ -18,7 +19,7 @@ Sprite::Sprite(float width, float height, char* filename)
 
 Sprite::~Sprite() {}
 
-void Sprite::loadTextureFromFile(char* filename) {
+void Sprite::loadTextureFromFile(std::string filename) {
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glShadeModel(GL_FLAT);
 	glEnable(GL_DEPTH_TEST);
@@ -33,7 +34,7 @@ void Sprite::loadTextureFromFile(char* filename) {
 	Texture = ResourceManager::GetTexture(filename);
 }
 
-void Sprite::initTexture(char* filename) {
+void Sprite::initTexture(std::string filename) {
 	glGenTextures(1, &textureName);
 	glBindTexture(GL_TEXTURE_2D, textureName);
 	loadTextureFromFile(filename);

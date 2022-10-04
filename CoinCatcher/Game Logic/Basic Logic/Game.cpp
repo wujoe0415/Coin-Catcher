@@ -5,9 +5,9 @@ Game::Game() {
 	ResourceManager::LoadTexture("../../Resources/Sprite/player.bmp", false, "player");
 	ResourceManager::LoadTexture("../../Resources/Sprite/coin.png", false, "coin");
 	
-	player = new Player(100, 100, filename, 10, 5);
+	player = new Player(100, 100, "player" , 10, 5);
 	window = &Window::getInstance();
-}
+} 
 
 void Game::setGameMode(unsigned int mode)
 {
@@ -22,7 +22,7 @@ void Game::setGameMode(unsigned int mode)
 
 // found in OpenGL Game Development by Example just rewrote to be compatible with this program 
 void Game::SpawnCoin() {
-	Coin* coin = new Coin(70, 70, filename2, 10, 10, 1);
+	Coin* coin = new Coin(70, 70, "coin", 10, 10, 1);
 
 	float marginX = coin->getWidth();
 	float marginY = coin->getHeight();
@@ -50,8 +50,10 @@ void Game::timer(void(*t)(int)) {
 
 void Game::Draw() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	if(player != nullptr)
+	cout << "Draw Start\n";
+	if (player != nullptr) {
 		player->Draw();
+	}
 	for(auto coin : coins)
 		coin->Draw();
 
@@ -96,6 +98,8 @@ void Game::DeleteCoins(vector<int>& needDeletedIndex) {
 void Game::PauseGame() {
 }
 void Game::GameLoop() {
+	Draw();
+
 	if (rand() % 100 > 30)
 		SpawnCoin();
 
@@ -114,6 +118,5 @@ void Game::GameLoop() {
 	}
 	DeleteCoins(deletedIndex);
 
-	Draw();
 	// UI
 }

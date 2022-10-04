@@ -6,7 +6,7 @@ public:
 	float move_speed;
 	int damage;
 
-	Coin(float, float, char*, float, float, int);
+	Coin(float, float, std::string, float, float, int);
 	~Coin() {};
 	void Draw();
 	void MoveDown();

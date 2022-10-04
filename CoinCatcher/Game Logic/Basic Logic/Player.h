@@ -6,7 +6,7 @@ class Player : public Entity{
 public:
 	int health;
 	float move_speed;
-	Player(float, float, char*, float, int);
+	Player(float, float, std::string, float, int);
 	~Player() {};
 	void Draw();
 	//virtual void Update();
@@ -15,4 +15,8 @@ public:
 	void setHealth(int);
 	int getHealth();
 
+	KeyInput* Input;
+	vector<int> inputList;
+	void InputHandler();
+	void InputCreater();
 };

@@ -9,7 +9,7 @@ protected:
 	float angle;
 	Sprite* sprite;
 public:
-	Entity(float, float, char*);
+	Entity(float, float, std::string);
 	virtual float getPositionX();
 	virtual float getPositionY();
 	virtual void setPositionX(float);

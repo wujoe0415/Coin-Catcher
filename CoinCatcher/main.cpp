@@ -1,46 +1,55 @@
 #include <glad/glad.h>
+#define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
+
 #include <stdio.h>
 #include "System/Window.h"
 #include <iostream>
-//#include "System/KeyInput.h"
-//#include "Basic Logic/Game.h"
+#include "System/KeyInput.h"
+#include "Basic Logic/Game.h"
 
-//static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
-//{
-//	if (key == GLFW_KEY_ESCAPE || action == GLFW_PRESS)
-//		glfwSetWindowShouldClose(window, GLFW_TRUE);
-//}
+void CloseWindow()
+{
+	glfwSetWindowShouldClose(Window::getInstance().sWindow, GLFW_TRUE);
+}
 
 int main(void)
 {
-	Window* window = &Window::getInstance();
-	window->CreateWindow(1280, 960);
-
 	/* Initialize the library */
 	if (!glfwInit())
 		return -1;
+	
+	Window* window = &Window::getInstance();
+	window->CreateWindow(1280, 960);
+	
+	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+	{
+		std::cout << "Failed to initialize GLAD" << std::endl;
+		return -1;
+	}
 
-
-	//Game* CoinCatcher = new Game();
+	Game* CoinCatcher = new Game();
 	//CoinCatcher->setGameMode(1);
 
+	vector<int> inputList{ GLFW_KEY_ESCAPE };
+	KeyInput* keyinputs = new KeyInput(inputList);
 	// Initialize Input callback
-	//KeyInput::setupKeyInputs(*window);
+	KeyInput::setupKeyInputs(*window);
 
 	/* Loop until the user closes the window */
-	std::cout << window->sWindow;
 	while (!glfwWindowShouldClose(window->sWindow))
 	{
-		/* Render here */
-		glClearColor(0.0f, 1.f, 0.0f, 1.0f);
+		if (keyinputs->getIsKeyDown(GLFW_KEY_ESCAPE))
+			CloseWindow();
+		
+		glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 		/* Swap front and back buffers */
 		glfwSwapBuffers(window->sWindow);
 		/* Poll for and process events */
 		glfwPollEvents();
 
-		//CoinCatcher->GameLoop();
+		CoinCatcher->GameLoop();
 	}
 	glfwTerminate();
 	return 0;
