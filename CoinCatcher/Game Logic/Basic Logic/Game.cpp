@@ -6,30 +6,33 @@
 #include <fstream>
 #include "System/stb_image.h"
 
-
-
 SpriteRenderer    *Renderer;
 
 Game::Game() {
 	window = &Window::getInstance();
 	// Inititialize Render Data
-	//ResourceManager::LoadShader("quad.vert", "quad.frag", nullptr, "standard");
-	ResourceManager::LoadTexture("dino.png", true, "player");
-	ResourceManager::LoadTexture("coin.png", true, "coin");
+	ResourceManager::LoadShader("quad.vert", "quad.frag", nullptr, "standard");
+	ResourceManager::LoadTexture("miner.png", true, "player");
+	ResourceManager::LoadTexture("diamond.png", true, "coin");
+	ResourceManager::LoadTexture("malware.png", true, "bomb");
 	glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(window->getWindowWidth()), static_cast<float>(window->getWindowHeight()), 0.0f, -1.0f, 1.0f);
 	ResourceManager::GetShader("standard").Use().SetInteger("standard", 0);
 	ResourceManager::GetShader("standard").SetMatrix4("standard", projection);
 
-	Shader standardSprite = loadShaderFromFile("quad.vert", "quad.frag", nullptr);
+	Shader standardSprite = ResourceManager::GetShader("standard") /*loadShaderFromFile("quad.vert", "quad.frag", nullptr)*/;
 	Renderer = new SpriteRenderer(standardSprite);
 
 	standardSprite.Use();
 	glUniform1i(glGetUniformLocation(standardSprite.ID, "sprite"), 0);
 
-	player = new Player(50, 50, "player", "standard", 10, 5);
+	player = new Player(120, 230, "player", "standard", 10, 5);
+	ScoreUI = new UI();
 	totalTime = 0;
 	updateCoinCycle = 0.5;
 	currentCoinTime = 0;
+	currentBombTime = 0;
+	collectedCoinNum = 0;
+	updateBombCycle = 0;
 } 
 
 void Game::setGameMode(unsigned int mode)
@@ -46,24 +49,35 @@ void Game::setGameMode(unsigned int mode)
 // found in OpenGL Game Development by Example just rewrote to be compatible with this program 
 void Game::SpawnCoin(float deltaTime) {
 	currentCoinTime += deltaTime;
-
 	if (currentCoinTime < updateCoinCycle)
 		return;
-	for (int i = rand() % 3; i >= 0; i--) {
-		Coin* coin = new Coin(70, 70, "coin", "standard", 10, 10, 1);
+	int random = rand();
+	for (int i = random % 2; i >= 0; i--) {
+		Coin* coin = new Coin(100, 80, "coin", "standard", 7, ((float)(random % 8) / 10) * 5);
 
-		float marginX = coin->getWidth();
-		float marginY = coin->getHeight();
 
-		float spawnX = (marginX / 2) + (rand() % window->getWindowWidth() - marginX);
-		float spawnY = marginY; //(marginY / 2)+ (rand() % window->getWindowHeight() - marginY)
-
+		float spawnX = coin->getWidth() + (float)((float)(random % 100) / 100) * window->getWindowWidth();
 		coin->setPositionX(spawnX);
-		coin->setPositionY(spawnY);
 
 		coins.push_back(coin);
 	}
 	currentCoinTime = 0;
+	updateCoinCycle = (float)(random % 50) / 100 + 0.2f;
+}
+void Game::SpawnBomb(float deltaTime) {
+	currentBombTime += deltaTime;
+	if (currentBombTime < updateBombCycle)
+		return;
+	int random = rand();
+	Bomb* bomb = new Bomb(70, 70, "bomb", "standard", 7, ((float)(random % 8) / 10) * 5, 1);
+
+	float spawnX = bomb->getWidth() + (float)((float)(random % 100) / 100) * window->getWindowWidth();
+	std::cout << spawnX << std::endl;
+	bomb->setPositionX(spawnX);
+	bombs.push_back(bomb);
+
+	currentBombTime = 0;
+	updateBombCycle = (float)(random % 50) / 100 + 0.5f;
 }
 
 
@@ -77,8 +91,12 @@ void Game::MoveCoin() {
 void Game::Draw() {
 	if (player != nullptr) 
 		player->Draw(*Renderer);
+	if (ScoreUI != nullptr)
+		ScoreUI->Draw(*Renderer, collectedCoinNum);
 	for (auto coin : coins) 
 		coin->Draw(*Renderer);
+	for (auto bomb : bombs)
+		bomb->Draw(*Renderer);
 }
 
 // AABB (axis-aligned bounding box) collision
@@ -98,13 +116,12 @@ bool Game::FallBack(Entity* entity) {
 }
 
 void Game::CollectCoin(Coin* coin) {
+	collectedCoinNum++;
 }
-void Game::DropCoin(Coin* coin) {
-	player->setHealth(player->getHealth() - coin->damage);
-
+void Game::TouchBomb() {
+	player->setHealth(player->getHealth() - bombs[0]->mDamage);
 	if (player->getHealth() <= 0) { // Check Game Over
-		// Lose
-		exit(0);
+		EndGame();
 	}
 }
 void Game::DeleteCoins(vector<int>& needDeletedIndex) {
@@ -114,16 +131,26 @@ void Game::DeleteCoins(vector<int>& needDeletedIndex) {
 		free(coin);
 	}
 }
-void Game::PauseGame() {
+void Game::PauseGame() {}
+void Game::EndGame() {
+	std::cout << "Total collected coin : "<< collectedCoinNum << std::endl;
+	std::cout << "EndGame\n";
+	//exit(0);
 }
 void Game::GameLoop() {
+	if (totalTime > 20)
+		EndGame();
 	float deltaTime = glfwGetTime() - totalTime;
 	totalTime = glfwGetTime();
-
-	//SpawnCoin(deltaTime);
+	SpawnCoin(deltaTime);
+	SpawnBomb(deltaTime);
 
 	// Player Move
 	player->InputHandler();
+	for (auto coin : coins)
+		coin->MoveDown();
+	for (auto bomb : bombs)
+		bomb->MoveDown();
 
 	// Collision Detection
 	vector<int> deletedIndex;
@@ -134,73 +161,15 @@ void Game::GameLoop() {
 			deletedIndex.push_back(i);
 		}
 		else if (FallBack(coins[i])) {
-			//DropCoin(coins[i]);
-			//deletedIndex.push_back(i);
+			deletedIndex.push_back(i);
 		}
+	}
+	for (int i = 0; i < bombs.size();i++) {
+		if (DetectCollision(player, bombs[i]))
+			TouchBomb();
 	}
 	if (!deletedIndex.empty())
 		DeleteCoins(deletedIndex);
 
 	// UI
-}
-Shader Game::loadShaderFromFile(const char *vShaderFile, const char *fShaderFile, const char *gShaderFile)
-{
-	// 1. retrieve the vertex/fragment source code from filePath
-	std::string vertexCode;
-	std::string fragmentCode;
-	std::string geometryCode;
-	try
-	{
-		// open files
-		std::ifstream vertexShaderFile(vShaderFile);
-		std::ifstream fragmentShaderFile(fShaderFile);
-		std::stringstream vShaderStream, fShaderStream;
-		// read file's buffer contents into streams
-		vShaderStream << vertexShaderFile.rdbuf();
-		fShaderStream << fragmentShaderFile.rdbuf();
-		// close file handlers
-		vertexShaderFile.close();
-		fragmentShaderFile.close();
-		// convert stream into string
-		vertexCode = vShaderStream.str();
-		fragmentCode = fShaderStream.str();
-		// if geometry shader path is present, also load a geometry shader
-		if (gShaderFile != nullptr)
-		{
-			std::ifstream geometryShaderFile(gShaderFile);
-			std::stringstream gShaderStream;
-			gShaderStream << geometryShaderFile.rdbuf();
-			geometryShaderFile.close();
-			geometryCode = gShaderStream.str();
-		}
-	}
-	catch (std::exception e)
-	{
-		std::cout << "ERROR::SHADER: Failed to read shader files" << std::endl;
-	}
-	const char *vShaderCode = vertexCode.c_str();
-	const char *fShaderCode = fragmentCode.c_str();
-	const char *gShaderCode = geometryCode.c_str();
-	// 2. now create shader object from source code
-	Shader shader;
-	shader.Compile(vShaderCode, fShaderCode, gShaderFile != nullptr ? gShaderCode : nullptr);
-	return shader;
-}
-Texture2D Game::loadTextureFromFile(const char *file, bool alpha)
-{
-	// create texture object
-	Texture2D texture;
-	if (alpha)
-	{
-		texture.Internal_Format = GL_RGBA;
-		texture.Image_Format = GL_RGBA;
-	}
-	// load image
-	int width, height, nrChannels;
-	unsigned char* data = stbi_load(file, &width, &height, &nrChannels, 0);
-	// now generate texture
-	texture.Generate(width, height, data);
-	// and finally free image data
-	stbi_image_free(data);
-	return texture;
 }

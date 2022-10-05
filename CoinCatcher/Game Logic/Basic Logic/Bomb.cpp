@@ -1,9 +1,9 @@
-#include "Coin.h"
+#include "Bomb.h"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
 
-Coin::Coin(float width, float height, std::string textureName, std::string shaderName, float moveSpeed, float rotationSpeed) :Entity(width, height, textureName, shaderName) {
+Bomb::Bomb(float width, float height, std::string textureName, std::string shaderName, float moveSpeed, float rotationSpeed, float damage) : Entity(width, height, textureName, shaderName) {
 	//sprite = new Sprite(width, height, textureName, shaderName);
 	x = 100;
 	y = 960;
@@ -13,26 +13,24 @@ Coin::Coin(float width, float height, std::string textureName, std::string shade
 	angle = 0;
 	move_speed = moveSpeed;
 	mRotationSpeed = rotationSpeed;
+	mDamage = damage;
 }
-void Coin::Draw(SpriteRenderer& Renderer) {
+void Bomb::Draw(SpriteRenderer& Renderer) {
 	sprite->Draw(Renderer);
 }
-void Coin::MoveDown() {
+void Bomb::MoveDown() {
 	// move_speed += gravityAcceration
 	y -= move_speed;
 	setPositionY(getPositionY());
 
 	Rotation();
 }
-void Coin::MoveUp()
+void Bomb::MoveUp()
 {
 	y += move_speed;
 	setPositionY(getPositionY());
 }
-void Coin::Rotation() {
+void Bomb::Rotation() {
 	angle += mRotationSpeed;
 	setAngle(angle);
 }
-//void Coin::Update() {
-//
-//}

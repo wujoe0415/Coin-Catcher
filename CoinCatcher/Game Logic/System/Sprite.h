@@ -11,17 +11,17 @@ class Sprite {
 private:
 	float x, y;
 	float width, height;
-	float origoX, origoY;
 	float angle;
-	//GLuint textureName;
 	Texture2D   mTexture;
 	Shader mShader;
+	float textureWidth, textureHeight;
+	//GLuint textureName;
 
 public:
 	Sprite(float, float, float, float, std::string, std::string);
 	Sprite(float, float, std::string, std::string);
 	~Sprite();
-	void Draw(SpriteRenderer&, float, float);
+	void Draw(SpriteRenderer&);
 	void UpdatePosition(float, float);
 	void setAngle(float);
 	float getAngle();

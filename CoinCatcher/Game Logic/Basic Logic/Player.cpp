@@ -24,18 +24,18 @@ int Player::getHealth() {
 }
 
 void Player::Draw(SpriteRenderer& Renderer) {
-	sprite->Draw(Renderer, getPositionX(), getPositionY());
+	sprite->Draw(Renderer);
 }
 
 void Player::MoveLeft() {
-	if (x - move_speed  - width < 0)
+	if (x - move_speed <= 0)
 		return;
 	x -= move_speed; 
 	setPositionX(getPositionX());
 }
 
 void Player::MoveRight() {
-	if (x + move_speed  + width > Window::getInstance().getWindowWidth())
+	if (x + move_speed  + width >= Window::getInstance().getWindowWidth())
 		return;
 	x += move_speed;	
 	setPositionX(getPositionX());

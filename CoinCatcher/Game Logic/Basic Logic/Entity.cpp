@@ -5,9 +5,6 @@ Entity::Entity(float width, float height, std::string textureName, std::string s
 	: width(width), height(height){
 
 	sprite = new Sprite(width, height, textureName, shaderName);
-	x = 100;
-	y = 100;
-	angle = 0;
 }
 
 float Entity::getPositionX() {

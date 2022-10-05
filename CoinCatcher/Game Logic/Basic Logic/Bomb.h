@@ -1,17 +1,18 @@
 #pragma once
 #include "Entity.h"
 
-class Coin : public Entity {
+class Bomb : public Entity {
 public:
-	float move_speed;
 
-	Coin(float, float, std::string, std::string, float, float);
-	~Coin() {};
+	Bomb(float, float, std::string, std::string, float, float, float);
+	~Bomb() {};
 	void Draw(SpriteRenderer&);
 	void MoveDown();
 	void MoveUp();
 	void Rotation();
+	float mDamage;
 	//virtual void Update();
-protected:
+private:
+	float move_speed;
 	float mRotationSpeed;
 };

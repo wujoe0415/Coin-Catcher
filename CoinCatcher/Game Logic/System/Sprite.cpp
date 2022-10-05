@@ -4,33 +4,32 @@
 Sprite::Sprite(float x, float y, float width, float height, std::string textureName, std::string shaderName)
 	: x(x), y(y), width(width), height(height), textureName(textureName), shaderName(shaderName) {
 	angle = 0;
-	origoX = width / 2;
-	origoY = height / 2;
 
 	mTexture = ResourceManager::GetTexture(textureName);
 	mShader = ResourceManager::GetShader(shaderName);
+	textureHeight = mTexture.Height;
+	textureWidth = mTexture.Width;
 }
 
 Sprite::Sprite(float width, float height, std::string textureName, std::string shaderName)
 	: width(width), height(height), textureName(textureName), shaderName(shaderName) {
 	angle = 0;
-	origoX = width / 2;
-	origoY = height / 2;
 
 	mTexture = ResourceManager::GetTexture(textureName);
-	std::cout << mTexture.Width << " ||| " << mTexture.Height << std::endl;
 	mShader = ResourceManager::GetShader(shaderName);
+	textureHeight = mTexture.Height;
+	textureWidth = mTexture.Width;
 }
 
 Sprite::~Sprite() {}
 
-void Sprite::Draw(SpriteRenderer& Renderer, float spriteX, float spriteY) {
+void Sprite::Draw(SpriteRenderer& Renderer) {
 	if (Window::getInstance().getWindowWidth() == 0 || Window::getInstance().getWindowHeight() == 0)
 		return;
-	spriteX = -1 + spriteX / (float)Window::getInstance().getWindowWidth();
-	spriteY = -1 + spriteY / (float)Window::getInstance().getWindowHeight();
-	std::cout << spriteX << " "<<spriteY<<std::endl;
-	Renderer.DrawSprite(mTexture, glm::vec2(spriteX, spriteY), glm::vec2(1, 1), angle, glm::vec3(1, 1, 1));
+	float spriteX = -1 + x / (float)Window::getInstance().getWindowWidth() * 2;
+	float spriteY = -1 + y / (float)Window::getInstance().getWindowHeight() * 2;
+
+	Renderer.DrawSprite(mTexture, glm::vec2(spriteX, spriteY), glm::vec2(width/textureWidth, height/textureHeight), angle, glm::vec3(1, 1, 1));
 }
 void Sprite::UpdatePosition(float newx, float newy)
 {
