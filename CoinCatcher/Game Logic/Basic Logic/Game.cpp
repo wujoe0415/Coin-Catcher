@@ -1,13 +1,22 @@
 #include "Game.h"
 #include <time.h>
 
+SpriteRenderer    *Renderer;
+
 Game::Game() {
+	window = &Window::getInstance();
+	// Inititialize Render Data
 	ResourceManager::LoadShader("Sprite.vs", "sprite.fs", nullptr, "standard");
 	ResourceManager::LoadTexture("Resources/Sprite/dino.png", true, "player");
 	ResourceManager::LoadTexture("Resources/Sprite/coin.png", true, "coin");
-	
+	glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(window->getWindowWidth()), static_cast<float>(window->getWindowHeight()), 0.0f, -1.0f, 1.0f);
+	ResourceManager::GetShader("standard").Use().SetInteger("standard", 0);
+	ResourceManager::GetShader("standard").SetMatrix4("standard", projection);
+
+	Shader standardSprite = ResourceManager::GetShader("standard");
+	Renderer = new SpriteRenderer(standardSprite);
+
 	player = new Player(100, 100, "player", "standard", 10, 5);
-	window = &Window::getInstance();
 	totalTime = 0;
 	updateCoinCycle = 0.5;
 	currentCoinTime = 0;
@@ -57,9 +66,9 @@ void Game::MoveCoin() {
 
 void Game::Draw() {
 	if (player != nullptr) 
-		player->Draw();
+		player->Draw(*Renderer);
 	for (auto coin : coins) 
-		coin->Draw();
+		coin->Draw(*Renderer);
 }
 
 // AABB (axis-aligned bounding box) collision
@@ -101,7 +110,7 @@ void Game::GameLoop() {
 	float deltaTime = glfwGetTime() - totalTime;
 	totalTime = glfwGetTime();
 
-	SpawnCoin(deltaTime);
+	//SpawnCoin(deltaTime);
 
 	// Player Move
 	player->InputHandler();

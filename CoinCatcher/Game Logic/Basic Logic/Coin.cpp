@@ -14,8 +14,8 @@ Coin::Coin(float width, float height, std::string textureName, std::string shade
 	mRotationSpeed = rotationSpeed;
 	damage = coin_damage;
 }
-void Coin::Draw() {
-	sprite->Draw();
+void Coin::Draw(SpriteRenderer& Renderer) {
+	sprite->Draw(Renderer);
 }
 void Coin::MoveDown() {
 	// move_speed += gravityAcceration

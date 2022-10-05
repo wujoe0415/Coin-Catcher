@@ -20,10 +20,12 @@ float Entity::getPositionY() {
 
 void Entity::setPositionX(float x) {
 	this->x = x;
+	sprite->UpdatePosition(x, y);
 }
 
 void Entity::setPositionY(float y) {
 	this->y = y;
+	sprite->UpdatePosition(x, y);
 }
 
 float Entity::getWidth() {
@@ -36,6 +38,7 @@ float Entity::getHeight() {
 
 void Entity::setAngle(float angle) {
 	this->angle = angle;
+	sprite->setAngle(angle);
 }
 
 float Entity::getAngle() {

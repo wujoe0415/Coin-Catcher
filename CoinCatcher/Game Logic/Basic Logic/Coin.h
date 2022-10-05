@@ -8,7 +8,7 @@ public:
 
 	Coin(float, float, std::string, std::string, float, float, int);
 	~Coin() {};
-	void Draw();
+	void Draw(SpriteRenderer&);
 	void MoveDown();
 	void MoveUp();
 	void Rotation();

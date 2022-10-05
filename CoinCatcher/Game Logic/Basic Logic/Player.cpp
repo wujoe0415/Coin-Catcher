@@ -12,6 +12,7 @@ Player::Player(float width, float height, std::string textureName,std::string sh
 	setHealth(health);
 	move_speed = moveSpeed;
 
+	sprite->UpdatePosition(x, y);
 	InputCreater();
 }
 void Player::setHealth(int health) {
@@ -22,20 +23,22 @@ int Player::getHealth() {
 	return health;
 }
 
-void Player::Draw() {
-	sprite->Draw();
+void Player::Draw(SpriteRenderer& Renderer) {
+	sprite->Draw(Renderer);
 }
 
 void Player::MoveLeft() {
-	if (x - move_speed  + width < 0)
+	if (x - move_speed  - width < 0)
 		return;
-	x -= move_speed;
+	x -= move_speed; 
+	setPositionX(getPositionX());
 }
 
 void Player::MoveRight() {
 	if (x + move_speed  + width > Window::getInstance().getWindowWidth())
 		return;
-	x += move_speed;
+	x += move_speed;	
+	setPositionX(getPositionX());
 }
 void Player::InputCreater() {
 	inputList.push_back(GLFW_KEY_LEFT);

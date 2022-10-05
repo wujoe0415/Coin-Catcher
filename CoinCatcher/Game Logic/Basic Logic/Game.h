@@ -8,6 +8,7 @@
 #include "Coin.h"
 #include "System/Window.h"
 #include "System/Resource_Manager.h"
+#include <glm/glm.hpp>
 
 using namespace std;
 

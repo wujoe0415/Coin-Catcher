@@ -8,7 +8,7 @@ public:
 	float move_speed;
 	Player(float, float, std::string, std::string, float, int);
 	~Player() {};
-	void Draw();
+	void Draw(SpriteRenderer&);
 	//virtual void Update();
 	void MoveRight();
 	void MoveLeft();
