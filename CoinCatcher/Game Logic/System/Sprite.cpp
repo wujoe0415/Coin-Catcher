@@ -24,7 +24,7 @@ Sprite::~Sprite() {}
 
 
 void Sprite::Draw() {
-	Renderer->DrawSprite(mTexture, glm::vec2(x,y), glm::vec2(1, 1), angle, glm::vec3(0, 0 ,0));
+	Renderer->DrawSprite(mTexture, glm::vec2(x,y), glm::vec2(1, 1), angle, glm::vec3(0, 1 ,0));
 
 	/*glBindTexture(GL_TEXTURE_2D, textureName);
 
