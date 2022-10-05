@@ -18,14 +18,16 @@ private:
 	Player* player;
 	vector<Coin*> coins;
 	Window* window;
+	float totalTime;
+	float updateCoinCycle;
+	float currentCoinTime;
 public:
 	Game();
 	void setGameMode(unsigned int mode);
-	void timer(void(*t)(int));
 	void Draw();
 	bool DetectCollision(Entity* entity1, Entity* entity2);
 	bool FallBack(Entity*);
-	void SpawnCoin();
+	void SpawnCoin(float);
 	void MoveCoin();
 	void CollectCoin(Coin*);
 	void DropCoin(Coin*);

@@ -41,16 +41,21 @@ int main(void)
 	{
 		if (keyinputs->getIsKeyDown(GLFW_KEY_ESCAPE))
 			CloseWindow();
-		
-		CoinCatcher->GameLoop();
-		glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
 
+		// calculate delta time
+
+		CoinCatcher->GameLoop();
+
+		/* Poll for and process events */
+		glfwPollEvents();
+
+		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glClear(GL_COLOR_BUFFER_BIT);
 		/* Swap front and back buffers */
 	
+		CoinCatcher->Draw();
 		glfwSwapBuffers(window->sWindow);
-		/* Poll for and process events */
-		glfwPollEvents();
 
 	}
 	glfwTerminate();

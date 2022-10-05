@@ -15,13 +15,7 @@ Coin::Coin(float width, float height, std::string textureName, std::string shade
 	damage = coin_damage;
 }
 void Coin::Draw() {
-	glLoadIdentity();
-	glMatrixMode(GL_MODELVIEW);
-	glPushMatrix();
-	glTranslatef(x, y, 0);
-	glRotatef(angle, 0, 0, 1);
 	sprite->Draw();
-	glPopMatrix();
 }
 void Coin::MoveDown() {
 	// move_speed += gravityAcceration

@@ -1,6 +1,7 @@
 #include "Player.h"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <iostream>
 
 Player::Player(float width, float height, std::string textureName,std::string shaderName, float moveSpeed, int playerHealth) : Entity(width, height, textureName, shaderName) {
 	sprite = new Sprite(width, height, textureName, shaderName);
@@ -10,7 +11,8 @@ Player::Player(float width, float height, std::string textureName,std::string sh
 	health = playerHealth;
 	setHealth(health);
 	move_speed = moveSpeed;
-	//InputCreater();
+
+	InputCreater();
 }
 void Player::setHealth(int health) {
 	this->health = health;
@@ -21,20 +23,18 @@ int Player::getHealth() {
 }
 
 void Player::Draw() {
-	glLoadIdentity();
-	glMatrixMode(GL_MODELVIEW);
-	glPushMatrix();
-	glTranslatef(x, y, 0);
-	glRotatef(angle, 0, 0, 1);
 	sprite->Draw();
-	glPopMatrix();
 }
 
 void Player::MoveLeft() {
+	if (x - move_speed  + width < 0)
+		return;
 	x -= move_speed;
 }
 
 void Player::MoveRight() {
+	if (x + move_speed  + width > Window::getInstance().getWindowWidth())
+		return;
 	x += move_speed;
 }
 void Player::InputCreater() {
@@ -51,6 +51,3 @@ void Player::InputHandler() {
 	else if (Input->getIsKeyDown(GLFW_KEY_RIGHT) || Input->getIsKeyDown(GLFW_KEY_D))
 		MoveRight();
 }
-//void Player::Update() {
-	
-//}

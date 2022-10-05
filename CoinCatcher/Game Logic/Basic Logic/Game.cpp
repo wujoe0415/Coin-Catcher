@@ -8,6 +8,9 @@ Game::Game() {
 	
 	player = new Player(100, 100, "player", "standard", 10, 5);
 	window = &Window::getInstance();
+	totalTime = 0;
+	updateCoinCycle = 0.5;
+	currentCoinTime = 0;
 } 
 
 void Game::setGameMode(unsigned int mode)
@@ -22,19 +25,26 @@ void Game::setGameMode(unsigned int mode)
 }
 
 // found in OpenGL Game Development by Example just rewrote to be compatible with this program 
-void Game::SpawnCoin() {
-	Coin* coin = new Coin(70, 70, "coin", "standard", 10, 10, 1);
+void Game::SpawnCoin(float deltaTime) {
+	currentCoinTime += deltaTime;
 
-	float marginX = coin->getWidth();
-	float marginY = coin->getHeight();
+	if (currentCoinTime < updateCoinCycle)
+		return;
+	for (int i = rand() % 3; i >= 0; i--) {
+		Coin* coin = new Coin(70, 70, "coin", "standard", 10, 10, 1);
 
-	float spawnX = (rand() % window->getWindowWidth() - (marginX * 2)) + marginX;
-	float spawnY = window->getWindowHeight() - ((rand() % (int)(player->getHeight() - (marginY * 2))) + marginY);
+		float marginX = coin->getWidth();
+		float marginY = coin->getHeight();
 
-	coin->setPositionX(spawnX);
-	coin->setPositionY(spawnY);
+		float spawnX = (marginX / 2) + (rand() % window->getWindowWidth() - marginX);
+		float spawnY = marginY; //(marginY / 2)+ (rand() % window->getWindowHeight() - marginY)
 
-	coins.push_back(coin);
+		coin->setPositionX(spawnX);
+		coin->setPositionY(spawnY);
+
+		coins.push_back(coin);
+	}
+	currentCoinTime = 0;
 }
 
 
@@ -45,22 +55,11 @@ void Game::MoveCoin() {
 	}
 }
 
-void Game::timer(void(*t)(int)) {
-
-}
-
 void Game::Draw() {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	if (player != nullptr) {
+	if (player != nullptr) 
 		player->Draw();
-	}
-	for(auto coin : coins)
+	for (auto coin : coins) 
 		coin->Draw();
-
-	glfwSwapBuffers(window->sWindow);
-
-	glFlush();
 }
 
 // AABB (axis-aligned bounding box) collision
@@ -99,9 +98,13 @@ void Game::DeleteCoins(vector<int>& needDeletedIndex) {
 void Game::PauseGame() {
 }
 void Game::GameLoop() {
+	float deltaTime = glfwGetTime() - totalTime;
+	totalTime = glfwGetTime();
 
-	if (rand() % 100 > 30)
-		SpawnCoin();
+	SpawnCoin(deltaTime);
+
+	// Player Move
+	player->InputHandler();
 
 	// Collision Detection
 	vector<int> deletedIndex;
@@ -116,10 +119,8 @@ void Game::GameLoop() {
 			//deletedIndex.push_back(i);
 		}
 	}
-	if(!deletedIndex.empty())
+	if (!deletedIndex.empty())
 		DeleteCoins(deletedIndex);
-
-	Draw();
 
 	// UI
 }
