@@ -6,7 +6,7 @@ class Player : public Entity{
 public:
 	int health;
 	float move_speed;
-	Player(float, float, std::string, float, int);
+	Player(float, float, std::string, std::string, float, int);
 	~Player() {};
 	void Draw();
 	//virtual void Update();

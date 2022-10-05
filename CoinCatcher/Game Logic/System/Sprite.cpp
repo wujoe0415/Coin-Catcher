@@ -1,49 +1,30 @@
 #include "Sprite.h"
 #include <iostream>
 
-Sprite::Sprite(float x, float y, float width, float height, std::string filename)
-	: x(x), y(y), width(width), height(height), filename(filename) {
+Sprite::Sprite(float x, float y, float width, float height, std::string textureName, std::string shaderName)
+	: x(x), y(y), width(width), height(height), textureName(textureName), shaderName(shaderName) {
 	angle = 0;
 	origoX = width / 2;
 	origoY = height / 2;
-	initTexture(filename);
 }
 
-Sprite::Sprite(float width, float height, std::string filename)
-	: width(width), height(height), filename(filename) {
+Sprite::Sprite(float width, float height, std::string textureName, std::string shaderName)
+	: width(width), height(height), textureName(textureName), shaderName(shaderName) {
 	angle = 0;
 	origoX = width / 2;
 	origoY = height / 2;
-	initTexture(filename);
+
+	mTexture = ResourceManager::GetTexture(textureName);
+	mShader = ResourceManager::GetShader(shaderName);
+
 	Renderer = new SpriteRenderer(mShader);
 }
 
 Sprite::~Sprite() {}
 
-void Sprite::loadTextureFromFile(std::string filename) {
-	glClearColor(0.0, 0.0, 0.0, 0.0);
-	glShadeModel(GL_FLAT);
-	glEnable(GL_DEPTH_TEST);
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-
-	glBindTexture(GL_TEXTURE_2D, textureName);
-
-	Texture = ResourceManager::GetTexture(filename);
-	mShader = ResourceManager::GetShader(filename);
-}
-
-void Sprite::initTexture(std::string filename) {
-	glGenTextures(1, &textureName);
-	glBindTexture(GL_TEXTURE_2D, textureName);
-	loadTextureFromFile(filename);
-}
 
 void Sprite::Draw() {
-	Renderer->DrawSprite(Texture, glm::vec2(x,y), glm::vec2(1, 1), angle, glm::vec3(0, 0 ,0));
+	Renderer->DrawSprite(mTexture, glm::vec2(x,y), glm::vec2(1, 1), angle, glm::vec3(0, 0 ,0));
 
 	/*glBindTexture(GL_TEXTURE_2D, textureName);
 

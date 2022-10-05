@@ -12,17 +12,16 @@ private:
 	float width, height;
 	float origoX, origoY;
 	float angle;
-	GLuint textureName;
-	std::string filename;
-	void loadTextureFromFile(std::string);
-	void initTexture(std::string);
-	Texture2D   Texture;
+	//GLuint textureName;
+	std::string textureName;
+	std::string shaderName;
+	Texture2D   mTexture;
 	Shader mShader;
 	SpriteRenderer* Renderer;
 
 public:
-	Sprite(float, float, float, float, std::string);
-	Sprite(float, float, std::string);
+	Sprite(float, float, float, float, std::string, std::string);
+	Sprite(float, float, std::string, std::string);
 	~Sprite();
 	void Draw();
 	void setAngle(float);

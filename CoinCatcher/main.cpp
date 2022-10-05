@@ -42,14 +42,16 @@ int main(void)
 		if (keyinputs->getIsKeyDown(GLFW_KEY_ESCAPE))
 			CloseWindow();
 		
+		CoinCatcher->GameLoop();
 		glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
+
 		glClear(GL_COLOR_BUFFER_BIT);
 		/* Swap front and back buffers */
+	
 		glfwSwapBuffers(window->sWindow);
 		/* Poll for and process events */
 		glfwPollEvents();
 
-		CoinCatcher->GameLoop();
 	}
 	glfwTerminate();
 	return 0;

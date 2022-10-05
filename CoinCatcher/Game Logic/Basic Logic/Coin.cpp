@@ -2,8 +2,8 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-Coin::Coin(float width, float height, std::string textureLocation, float moveSpeed, float rotationSpeed, int coin_damage) :Entity(width, height, textureLocation) {
-	sprite = new Sprite(width, height, textureLocation);
+Coin::Coin(float width, float height, std::string textureName, std::string shaderName, float moveSpeed, float rotationSpeed, int coin_damage) :Entity(width, height, textureName, shaderName) {
+	sprite = new Sprite(width, height, textureName, shaderName);
 	x = 100;
 	y = 100;
 	setPositionX(getPositionX());

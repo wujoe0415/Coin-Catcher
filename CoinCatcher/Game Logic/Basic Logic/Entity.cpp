@@ -1,10 +1,10 @@
 #include "Entity.h"
 #include <iostream>
 
-Entity::Entity(float width, float height, std::string textureLocation)
+Entity::Entity(float width, float height, std::string textureName, std::string shaderName)
 	: width(width), height(height){
 
-	sprite = new Sprite(width, height, textureLocation);
+	sprite = new Sprite(width, height, textureName, shaderName);
 	x = 100;
 	y = 100;
 	angle = 0;

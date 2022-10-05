@@ -2,8 +2,8 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-Player::Player(float width, float height, std::string textureLocation, float moveSpeed, int playerHealth) : Entity(width, height, textureLocation) {
-	sprite = new Sprite(width, height, textureLocation);
+Player::Player(float width, float height, std::string textureName,std::string shaderName, float moveSpeed, int playerHealth) : Entity(width, height, textureName, shaderName) {
+	sprite = new Sprite(width, height, textureName, shaderName);
 	x = 100;
 	y = 100;
 	angle = 0;
