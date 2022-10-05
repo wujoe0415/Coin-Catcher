@@ -22,6 +22,9 @@ private:
 	float totalTime;
 	float updateCoinCycle;
 	float currentCoinTime;
+	Shader loadShaderFromFile(const char *vShaderFile, const char *fShaderFile, const char *gShaderFile);
+	Texture2D loadTextureFromFile(const char *file, bool alpha);
+
 public:
 	Game();
 	void setGameMode(unsigned int mode);

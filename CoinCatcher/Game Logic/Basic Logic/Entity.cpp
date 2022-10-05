@@ -20,12 +20,12 @@ float Entity::getPositionY() {
 
 void Entity::setPositionX(float x) {
 	this->x = x;
-	sprite->UpdatePosition(x, y);
+	sprite->UpdatePosition(this->x, this->y);
 }
 
 void Entity::setPositionY(float y) {
 	this->y = y;
-	sprite->UpdatePosition(x, y);
+	sprite->UpdatePosition(this->x, this->y);
 }
 
 float Entity::getWidth() {

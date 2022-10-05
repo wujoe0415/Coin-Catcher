@@ -20,13 +20,15 @@ int main(void)
 		return -1;
 	
 	Window* window = &Window::getInstance();
-	window->CreateWindow(1280, 960);
+	window->CreateWindow(960, 960);
 	
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
 		std::cout << "Failed to initialize GLAD" << std::endl;
 		return -1;
 	}
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	Game* CoinCatcher = new Game();
 	//CoinCatcher->setGameMode(1);
@@ -42,21 +44,18 @@ int main(void)
 		if (keyinputs->getIsKeyDown(GLFW_KEY_ESCAPE))
 			CloseWindow();
 
-		// calculate delta time
-
 		CoinCatcher->GameLoop();
 
 		/* Poll for and process events */
 		glfwPollEvents();
 
-		glClearColor(0.0f, 0.0f, 1.0f, 1.0f);
+		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glClear(GL_COLOR_BUFFER_BIT);
 		/* Swap front and back buffers */
 	
 		CoinCatcher->Draw();
 		glfwSwapBuffers(window->sWindow);
-
 	}
 	glfwTerminate();
 	return 0;

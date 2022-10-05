@@ -1,22 +1,32 @@
 #include "Game.h"
 #include <time.h>
 
+#include <iostream>
+#include <sstream>
+#include <fstream>
+#include "System/stb_image.h"
+
+
+
 SpriteRenderer    *Renderer;
 
 Game::Game() {
 	window = &Window::getInstance();
 	// Inititialize Render Data
-	ResourceManager::LoadShader("Sprite.vs", "sprite.fs", nullptr, "standard");
-	ResourceManager::LoadTexture("Resources/Sprite/dino.png", true, "player");
-	ResourceManager::LoadTexture("Resources/Sprite/coin.png", true, "coin");
+	//ResourceManager::LoadShader("quad.vert", "quad.frag", nullptr, "standard");
+	ResourceManager::LoadTexture("dino.png", true, "player");
+	ResourceManager::LoadTexture("coin.png", true, "coin");
 	glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(window->getWindowWidth()), static_cast<float>(window->getWindowHeight()), 0.0f, -1.0f, 1.0f);
 	ResourceManager::GetShader("standard").Use().SetInteger("standard", 0);
 	ResourceManager::GetShader("standard").SetMatrix4("standard", projection);
 
-	Shader standardSprite = ResourceManager::GetShader("standard");
+	Shader standardSprite = loadShaderFromFile("quad.vert", "quad.frag", nullptr);
 	Renderer = new SpriteRenderer(standardSprite);
 
-	player = new Player(100, 100, "player", "standard", 10, 5);
+	standardSprite.Use();
+	glUniform1i(glGetUniformLocation(standardSprite.ID, "sprite"), 0);
+
+	player = new Player(50, 50, "player", "standard", 10, 5);
 	totalTime = 0;
 	updateCoinCycle = 0.5;
 	currentCoinTime = 0;
@@ -132,4 +142,65 @@ void Game::GameLoop() {
 		DeleteCoins(deletedIndex);
 
 	// UI
+}
+Shader Game::loadShaderFromFile(const char *vShaderFile, const char *fShaderFile, const char *gShaderFile)
+{
+	// 1. retrieve the vertex/fragment source code from filePath
+	std::string vertexCode;
+	std::string fragmentCode;
+	std::string geometryCode;
+	try
+	{
+		// open files
+		std::ifstream vertexShaderFile(vShaderFile);
+		std::ifstream fragmentShaderFile(fShaderFile);
+		std::stringstream vShaderStream, fShaderStream;
+		// read file's buffer contents into streams
+		vShaderStream << vertexShaderFile.rdbuf();
+		fShaderStream << fragmentShaderFile.rdbuf();
+		// close file handlers
+		vertexShaderFile.close();
+		fragmentShaderFile.close();
+		// convert stream into string
+		vertexCode = vShaderStream.str();
+		fragmentCode = fShaderStream.str();
+		// if geometry shader path is present, also load a geometry shader
+		if (gShaderFile != nullptr)
+		{
+			std::ifstream geometryShaderFile(gShaderFile);
+			std::stringstream gShaderStream;
+			gShaderStream << geometryShaderFile.rdbuf();
+			geometryShaderFile.close();
+			geometryCode = gShaderStream.str();
+		}
+	}
+	catch (std::exception e)
+	{
+		std::cout << "ERROR::SHADER: Failed to read shader files" << std::endl;
+	}
+	const char *vShaderCode = vertexCode.c_str();
+	const char *fShaderCode = fragmentCode.c_str();
+	const char *gShaderCode = geometryCode.c_str();
+	// 2. now create shader object from source code
+	Shader shader;
+	shader.Compile(vShaderCode, fShaderCode, gShaderFile != nullptr ? gShaderCode : nullptr);
+	return shader;
+}
+Texture2D Game::loadTextureFromFile(const char *file, bool alpha)
+{
+	// create texture object
+	Texture2D texture;
+	if (alpha)
+	{
+		texture.Internal_Format = GL_RGBA;
+		texture.Image_Format = GL_RGBA;
+	}
+	// load image
+	int width, height, nrChannels;
+	unsigned char* data = stbi_load(file, &width, &height, &nrChannels, 0);
+	// now generate texture
+	texture.Generate(width, height, data);
+	// and finally free image data
+	stbi_image_free(data);
+	return texture;
 }

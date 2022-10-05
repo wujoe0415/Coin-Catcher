@@ -3,7 +3,7 @@
 #include <GLFW/glfw3.h>
 
 Coin::Coin(float width, float height, std::string textureName, std::string shaderName, float moveSpeed, float rotationSpeed, int coin_damage) :Entity(width, height, textureName, shaderName) {
-	sprite = new Sprite(width, height, textureName, shaderName);
+	//sprite = new Sprite(width, height, textureName, shaderName);
 	x = 100;
 	y = 100;
 	setPositionX(getPositionX());
@@ -15,7 +15,7 @@ Coin::Coin(float width, float height, std::string textureName, std::string shade
 	damage = coin_damage;
 }
 void Coin::Draw(SpriteRenderer& Renderer) {
-	sprite->Draw(Renderer);
+	sprite->Draw(Renderer, getPositionX(), getPositionY());
 }
 void Coin::MoveDown() {
 	// move_speed += gravityAcceration

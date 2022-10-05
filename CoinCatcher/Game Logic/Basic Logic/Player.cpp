@@ -4,9 +4,9 @@
 #include <iostream>
 
 Player::Player(float width, float height, std::string textureName,std::string shaderName, float moveSpeed, int playerHealth) : Entity(width, height, textureName, shaderName) {
-	sprite = new Sprite(width, height, textureName, shaderName);
-	x = 100;
-	y = 100;
+	//sprite = new Sprite(width, height, textureName, shaderName);
+	x = 50;
+	y = 50;
 	angle = 0;
 	health = playerHealth;
 	setHealth(health);
@@ -24,7 +24,7 @@ int Player::getHealth() {
 }
 
 void Player::Draw(SpriteRenderer& Renderer) {
-	sprite->Draw(Renderer);
+	sprite->Draw(Renderer, getPositionX(), getPositionY());
 }
 
 void Player::MoveLeft() {

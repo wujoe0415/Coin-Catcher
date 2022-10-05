@@ -39,13 +39,14 @@ public:
 	static Texture2D GetTexture(std::string name);
 	// properly de-allocates all loaded resources
 	static void      Clear();
-private:
-	// private constructor, that is we do not want any actual resource manager objects. Its members and functions should be publicly available (static).
-	ResourceManager() { }
 	// loads and generates a shader from file
 	static Shader    loadShaderFromFile(const char *vShaderFile, const char *fShaderFile, const char *gShaderFile = nullptr);
 	// loads a single texture from file
 	static Texture2D loadTextureFromFile(const char *file, bool alpha);
+private:
+	// private constructor, that is we do not want any actual resource manager objects. Its members and functions should be publicly available (static).
+	ResourceManager() { }
+	
 };
 
 #endif

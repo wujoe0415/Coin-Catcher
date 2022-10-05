@@ -24,11 +24,13 @@ void Shader::Compile(const char* vertexSource, const char* fragmentSource, const
 	glShaderSource(sVertex, 1, &vertexSource, NULL);
 	glCompileShader(sVertex);
 	checkCompileErrors(sVertex, "VERTEX");
+	std::cout << "check1" << std::endl;
 	// fragment Shader
 	sFragment = glCreateShader(GL_FRAGMENT_SHADER);
 	glShaderSource(sFragment, 1, &fragmentSource, NULL);
 	glCompileShader(sFragment);
 	checkCompileErrors(sFragment, "FRAGMENT");
+	std::cout << "check1" << std::endl;
 	// if geometry shader source code is given, also compile geometry shader
 	if (geometrySource != nullptr)
 	{
