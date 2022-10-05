@@ -4,6 +4,7 @@
 #include <glad/glad.h>
 #include <System/Sprite_Renderer.h>
 #include "System/Resource_Manager.h"
+#include "System/Shader.h"
 
 class Sprite : IDrawable {
 private:
@@ -16,6 +17,8 @@ private:
 	void loadTextureFromFile(std::string);
 	void initTexture(std::string);
 	Texture2D   Texture;
+	Shader mShader;
+	SpriteRenderer* Renderer;
 
 public:
 	Sprite(float, float, float, float, std::string);

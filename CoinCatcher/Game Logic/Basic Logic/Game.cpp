@@ -2,8 +2,9 @@
 #include <time.h>
 
 Game::Game() {
-	ResourceManager::LoadTexture("../../Resources/Sprite/player.bmp", false, "player");
-	ResourceManager::LoadTexture("../../Resources/Sprite/coin.png", false, "coin");
+	ResourceManager::LoadShader("Sprite.vs", "sprite.fs", nullptr, "standard");
+	ResourceManager::LoadTexture("Resources/Sprite/player.bmp", false, "player");
+	ResourceManager::LoadTexture("Resources/Sprite/coin.png", true, "coin");
 	
 	player = new Player(100, 100, "player" , 10, 5);
 	window = &Window::getInstance();
@@ -52,6 +53,7 @@ void Game::Draw() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	cout << "Draw Start\n";
 	if (player != nullptr) {
+		cout << "player";
 		player->Draw();
 	}
 	for(auto coin : coins)

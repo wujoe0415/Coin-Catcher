@@ -15,6 +15,7 @@ Sprite::Sprite(float width, float height, std::string filename)
 	origoX = width / 2;
 	origoY = height / 2;
 	initTexture(filename);
+	Renderer = new SpriteRenderer(mShader);
 }
 
 Sprite::~Sprite() {}
@@ -32,6 +33,7 @@ void Sprite::loadTextureFromFile(std::string filename) {
 	glBindTexture(GL_TEXTURE_2D, textureName);
 
 	Texture = ResourceManager::GetTexture(filename);
+	mShader = ResourceManager::GetShader(filename);
 }
 
 void Sprite::initTexture(std::string filename) {
@@ -41,7 +43,14 @@ void Sprite::initTexture(std::string filename) {
 }
 
 void Sprite::Draw() {
-	initTexture(filename);
+	Renderer->DrawSprite(Texture, glm::vec2(x,y), glm::vec2(1, 1), angle, glm::vec3(0, 0 ,0));
+
+	/*glBindTexture(GL_TEXTURE_2D, textureName);
+
+	glBindVertexArray(this->VAO);
+	glDrawArrays(GL_TRIANGLES, 0, 6);
+	glBindVertexArray(0);
+
 
 	glEnable(GL_TEXTURE_2D);
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
@@ -59,7 +68,7 @@ void Sprite::Draw() {
 
 
 	glPopMatrix();
-	glDisable(GL_TEXTURE_2D);
+	glDisable(GL_TEXTURE_2D);*/
 }
 
 void Sprite::setAngle(float angle) {
