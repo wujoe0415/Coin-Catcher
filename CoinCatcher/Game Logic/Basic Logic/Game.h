@@ -22,6 +22,7 @@ private:
 	vector<Coin*> coins;
 	vector<Bomb*> bombs;
 	Window* window;
+	float gameTime;
 	float totalTime;
 	float updateCoinCycle;
 	float updateBombCycle;
@@ -44,4 +45,5 @@ public:
 	void GameLoop();
 	void PauseGame();
 	void EndGame();
+	void InitGame();
 };

@@ -2,45 +2,11 @@
 
 UI::UI() {
 	InitRender();
-	FirstBit.push_back(new Number(50, 50, "zero", "standard"));
-	SecondBit.push_back(new Number(50, 50, "zero", "standard"));
-	ThirdBit.push_back(new Number(50, 50, "zero", "standard"));
-
-	FirstBit.push_back(new Number(50, 50, "one", "standard"));
-	SecondBit.push_back(new Number(50, 50, "one", "standard"));
-	ThirdBit.push_back(new Number(50, 50, "one", "standard"));
-
-	FirstBit.push_back(new Number(50, 50, "two", "standard"));
-	SecondBit.push_back(new Number(50, 50, "two", "standard"));
-	ThirdBit.push_back(new Number(50, 50, "two", "standard"));
-
-	FirstBit.push_back(new Number(50, 50, "three", "standard"));
-	SecondBit.push_back(new Number(50, 50, "three", "standard"));
-	ThirdBit.push_back(new Number(50, 50, "three", "standard"));
-
-	FirstBit.push_back(new Number(50, 50, "four", "standard"));
-	SecondBit.push_back(new Number(50, 50, "four", "standard"));
-	ThirdBit.push_back(new Number(50, 50, "four", "standard"));
-
-	FirstBit.push_back(new Number(50, 50, "five", "standard"));
-	SecondBit.push_back(new Number(50, 50, "five", "standard"));
-	ThirdBit.push_back(new Number(50, 50, "five", "standard"));
-
-	FirstBit.push_back(new Number(50, 50, "six", "standard"));
-	SecondBit.push_back(new Number(50, 50, "six", "standard"));
-	ThirdBit.push_back(new Number(50, 50, "six", "standard"));
-
-	FirstBit.push_back(new Number(50, 50, "seven", "standard"));
-	SecondBit.push_back(new Number(50, 50, "seven", "standard"));
-	ThirdBit.push_back(new Number(50, 50, "seven", "standard"));
-
-	FirstBit.push_back(new Number(50, 50, "eight", "standard"));
-	SecondBit.push_back(new Number(50, 50, "eight", "standard"));
-	ThirdBit.push_back(new Number(50, 50, "eight", "standard"));
-
-	FirstBit.push_back(new Number(50, 50, "nine", "standard"));
-	SecondBit.push_back(new Number(50, 50, "nine", "standard"));
-	ThirdBit.push_back(new Number(50, 50, "nine", "standard"));
+	NumberLoad(FirstBit);
+	NumberLoad(SecondBit);
+	NumberLoad(ThirdBit);
+	NumberLoad(TimerFirstBit);
+	NumberLoad(TimerSecondBit);
 
 	for (auto& bit : ThirdBit)
 	{
@@ -57,9 +23,19 @@ UI::UI() {
 		bit->setPositionX(900);
 		bit->setPositionY(850);
 	}
+	for (auto& bit : TimerSecondBit)
+	{
+		bit->setPositionX(20);
+		bit->setPositionY(850);
+	}
+	for (auto& bit : TimerFirstBit)
+	{
+		bit->setPositionX(60);
+		bit->setPositionY(850);
+	}
 };
 
-void UI::Draw(SpriteRenderer& Renderer, int score) {
+void UI::Draw(SpriteRenderer& Renderer, int score, float timer) {
 	int first = (score % 10);
 	score /= 10;
 	int second = (score % 10);
@@ -69,7 +45,13 @@ void UI::Draw(SpriteRenderer& Renderer, int score) {
 	FirstBit[first]->Draw(Renderer);
 	SecondBit[second]->Draw(Renderer);
 	ThirdBit[third]->Draw(Renderer);
-	
+
+	timer = timer < 0 ? 0: timer;
+	int temp = (int)timer;
+	first = temp % 10;
+	second = temp / 10;
+	TimerFirstBit[first]->Draw(Renderer);
+	TimerSecondBit[second]->Draw(Renderer);
 }
 
 void UI::InitRender() {
@@ -83,4 +65,17 @@ void UI::InitRender() {
 	ResourceManager::LoadTexture("seven.png", true, "seven");
 	ResourceManager::LoadTexture("eight.png", true, "eight");
 	ResourceManager::LoadTexture("nine.png", true, "nine");
+}
+
+void UI::NumberLoad(vector<Entity*>& vec) {
+	vec.push_back(new Number(50, 50, "zero", "standard"));
+	vec.push_back(new Number(29, 50, "one", "standard"));
+	vec.push_back(new Number(27, 39, "two", "standard"));
+	vec.push_back(new Number(29.9, 43, "three", "standard"));
+	vec.push_back(new Number(62.5, 50, "four", "standard"));
+	vec.push_back(new Number(50, 50, "five", "standard"));
+	vec.push_back(new Number(29.9, 43, "six", "standard"));
+	vec.push_back(new Number(50, 50, "seven", "standard"));
+	vec.push_back(new Number(50, 50, "eight", "standard"));
+	vec.push_back(new Number(50, 50, "nine", "standard"));
 }

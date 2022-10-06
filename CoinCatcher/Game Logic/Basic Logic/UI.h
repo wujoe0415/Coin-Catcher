@@ -11,8 +11,10 @@ public:
 	vector<Entity*> FirstBit;
 	vector<Entity*> SecondBit;
 	vector<Entity*> ThirdBit;
-	void Draw(SpriteRenderer&, int);
-
+	vector<Entity*> TimerFirstBit;
+	vector<Entity*> TimerSecondBit;
+	void Draw(SpriteRenderer& renderer, int score, float timer);
 private:
 	void InitRender();
+	void NumberLoad(vector<Entity*>&);
 };

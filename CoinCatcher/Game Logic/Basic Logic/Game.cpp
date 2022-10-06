@@ -25,7 +25,12 @@ Game::Game() {
 	standardSprite.Use();
 	glUniform1i(glGetUniformLocation(standardSprite.ID, "sprite"), 0);
 
-	player = new Player(120, 230, "player", "standard", 10, 5);
+	InitGame();
+} 
+void Game::InitGame() {
+	coins.clear();
+	bombs.clear();
+	player = new Player(120, 300, "player", "standard", 10, 5);
 	ScoreUI = new UI();
 	totalTime = 0;
 	updateCoinCycle = 0.5;
@@ -33,8 +38,8 @@ Game::Game() {
 	currentBombTime = 0;
 	collectedCoinNum = 0;
 	updateBombCycle = 0;
-} 
-
+	gameTime = 20;
+}
 void Game::setGameMode(unsigned int mode)
 {
 	int health = 100;
@@ -92,7 +97,7 @@ void Game::Draw() {
 	if (player != nullptr) 
 		player->Draw(*Renderer);
 	if (ScoreUI != nullptr)
-		ScoreUI->Draw(*Renderer, collectedCoinNum);
+		ScoreUI->Draw(*Renderer, collectedCoinNum, gameTime - totalTime + 1);
 	for (auto coin : coins) 
 		coin->Draw(*Renderer);
 	for (auto bomb : bombs)
@@ -138,7 +143,7 @@ void Game::EndGame() {
 	//exit(0);
 }
 void Game::GameLoop() {
-	if (totalTime > 20)
+	if (totalTime > gameTime)
 		EndGame();
 	float deltaTime = glfwGetTime() - totalTime;
 	totalTime = glfwGetTime();
