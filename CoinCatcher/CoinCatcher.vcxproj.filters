@@ -66,6 +66,9 @@
     <ClCompile Include="Game Logic\Basic Logic\UI.cpp">
       <Filter>來源檔案</Filter>
     </ClCompile>
+    <ClCompile Include="Game Logic\Basic Logic\WholeUI.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game Logic\Basic Logic\Entity.h">
@@ -114,6 +117,9 @@
       <Filter>標頭檔</Filter>
     </ClInclude>
     <ClInclude Include="Game Logic\Basic Logic\UI.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="Game Logic\Basic Logic\WholeUI.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,4 +1,5 @@
 #include "UI.h"
+#include "System/Window.h"
 
 UI::UI() {
 	InitRender();
@@ -7,7 +8,10 @@ UI::UI() {
 	NumberLoad(ThirdBit);
 	NumberLoad(TimerFirstBit);
 	NumberLoad(TimerSecondBit);
-
+	LoadGameUI();
+	FinishUI = new WholeUI(0, 0, "FinishUI", "standard");
+}
+void UI::LoadGameUI() {
 	for (auto& bit : ThirdBit)
 	{
 		bit->setPositionX(820);
@@ -33,8 +37,7 @@ UI::UI() {
 		bit->setPositionX(60);
 		bit->setPositionY(850);
 	}
-};
-
+}
 void UI::Draw(SpriteRenderer& Renderer, int score, float timer) {
 	int first = (score % 10);
 	score /= 10;
@@ -54,6 +57,26 @@ void UI::Draw(SpriteRenderer& Renderer, int score, float timer) {
 	TimerSecondBit[second]->Draw(Renderer);
 }
 
+void UI::DrawEndUI(SpriteRenderer& Renderer, int score) {
+	int first = (score % 10);
+	score /= 10;
+	int second = (score % 10);
+	score /= 10;
+	int third = (score % 10);
+
+	ThirdBit[third]->setPositionX(500);
+	ThirdBit[third]->setPositionY(500);
+	SecondBit[second]->setPositionX(530);
+	SecondBit[second]->setPositionY(500);
+	FirstBit[first]->setPositionX(560);
+	FirstBit[first]->setPositionY(500);
+
+	FinishUI->Draw(Renderer);
+	FirstBit[first]->Draw(Renderer);
+	SecondBit[second]->Draw(Renderer);
+	ThirdBit[third]->Draw(Renderer);
+}
+
 void UI::InitRender() {
 	ResourceManager::LoadTexture("zero.png", true, "zero");
 	ResourceManager::LoadTexture("one.png", true, "one");
@@ -65,6 +88,7 @@ void UI::InitRender() {
 	ResourceManager::LoadTexture("seven.png", true, "seven");
 	ResourceManager::LoadTexture("eight.png", true, "eight");
 	ResourceManager::LoadTexture("nine.png", true, "nine");
+	ResourceManager::LoadTexture("FinishUI.png", true, "FinishUI");
 }
 
 void UI::NumberLoad(vector<Entity*>& vec) {

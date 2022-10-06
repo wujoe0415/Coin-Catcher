@@ -29,7 +29,8 @@ private:
 	float currentCoinTime;
 	float currentBombTime;
 	int collectedCoinNum;
-
+	bool isEnd;
+	KeyInput* keyinputs;
 public:
 	Game();
 	void setGameMode(unsigned int mode);
@@ -46,4 +47,5 @@ public:
 	void PauseGame();
 	void EndGame();
 	void InitGame();
+	void ReGame();
 };

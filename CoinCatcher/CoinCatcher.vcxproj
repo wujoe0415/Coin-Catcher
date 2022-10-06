@@ -138,6 +138,7 @@
     <ClCompile Include="Game Logic\Basic Logic\Number.cpp" />
     <ClCompile Include="Game Logic\Basic Logic\Player.cpp" />
     <ClCompile Include="Game Logic\Basic Logic\UI.cpp" />
+    <ClCompile Include="Game Logic\Basic Logic\WholeUI.cpp" />
     <ClCompile Include="Game Logic\System\glad.c" />
     <ClCompile Include="Game Logic\System\KeyInput.cpp" />
     <ClCompile Include="Game Logic\System\Resource_Manager.cpp" />
@@ -156,6 +157,7 @@
     <ClInclude Include="Game Logic\Basic Logic\Game.h" />
     <ClInclude Include="Game Logic\Basic Logic\Number.h" />
     <ClInclude Include="Game Logic\Basic Logic\UI.h" />
+    <ClInclude Include="Game Logic\Basic Logic\WholeUI.h" />
     <ClInclude Include="Game Logic\System\IDrawable.h" />
     <ClInclude Include="Game Logic\Basic Logic\Player.h" />
     <ClInclude Include="Game Logic\System\KeyInput.h" />

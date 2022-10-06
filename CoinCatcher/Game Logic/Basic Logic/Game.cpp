@@ -1,6 +1,8 @@
 #include "Game.h"
 #include <time.h>
-
+#include <glad/glad.h>
+#define GLFW_INCLUDE_NONE
+#include <GLFW/glfw3.h>
 #include <iostream>
 #include <sstream>
 #include <fstream>
@@ -24,7 +26,8 @@ Game::Game() {
 
 	standardSprite.Use();
 	glUniform1i(glGetUniformLocation(standardSprite.ID, "sprite"), 0);
-
+	vector<int> inputList{ GLFW_KEY_SPACE };
+	keyinputs = new KeyInput(inputList);
 	InitGame();
 } 
 void Game::InitGame() {
@@ -32,13 +35,20 @@ void Game::InitGame() {
 	bombs.clear();
 	player = new Player(120, 300, "player", "standard", 10, 5);
 	ScoreUI = new UI();
+	ScoreUI->LoadGameUI();
 	totalTime = 0;
 	updateCoinCycle = 0.5;
 	currentCoinTime = 0;
 	currentBombTime = 0;
 	collectedCoinNum = 0;
 	updateBombCycle = 0;
-	gameTime = 20;
+	gameTime = 20; 
+	isEnd = false;
+}
+void Game::ReGame() {
+	if (keyinputs->getIsKeyDown(GLFW_KEY_SPACE)) {
+		InitGame();
+	}
 }
 void Game::setGameMode(unsigned int mode)
 {
@@ -94,6 +104,10 @@ void Game::MoveCoin() {
 }
 
 void Game::Draw() {
+	if (isEnd) {
+		ScoreUI->DrawEndUI(*Renderer, collectedCoinNum);
+		return;
+	}
 	if (player != nullptr) 
 		player->Draw(*Renderer);
 	if (ScoreUI != nullptr)
@@ -138,11 +152,14 @@ void Game::DeleteCoins(vector<int>& needDeletedIndex) {
 }
 void Game::PauseGame() {}
 void Game::EndGame() {
-	std::cout << "Total collected coin : "<< collectedCoinNum << std::endl;
-	std::cout << "EndGame\n";
+	isEnd = true;
 	//exit(0);
 }
 void Game::GameLoop() {
+	if (isEnd) {
+		ReGame();
+		return;
+	}
 	if (totalTime > gameTime)
 		EndGame();
 	float deltaTime = glfwGetTime() - totalTime;
@@ -175,6 +192,4 @@ void Game::GameLoop() {
 	}
 	if (!deletedIndex.empty())
 		DeleteCoins(deletedIndex);
-
-	// UI
 }
