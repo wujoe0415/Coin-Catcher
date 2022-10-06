@@ -43,6 +43,7 @@ void Game::InitGame() {
 	collectedCoinNum = 0;
 	updateBombCycle = 0;
 	gameTime = 20; 
+	glfwSetTime(0);
 	isEnd = false;
 }
 void Game::ReGame() {

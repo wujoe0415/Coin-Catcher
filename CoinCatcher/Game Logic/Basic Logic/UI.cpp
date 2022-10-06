@@ -9,7 +9,7 @@ UI::UI() {
 	NumberLoad(TimerFirstBit);
 	NumberLoad(TimerSecondBit);
 	LoadGameUI();
-	FinishUI = new WholeUI(0, 0, "FinishUI", "standard");
+	FinishUI = new WholeUI(960 * 4, 960*2, "FinishUI", "standard");
 }
 void UI::LoadGameUI() {
 	for (auto& bit : ThirdBit)
@@ -64,13 +64,14 @@ void UI::DrawEndUI(SpriteRenderer& Renderer, int score) {
 	score /= 10;
 	int third = (score % 10);
 
-	ThirdBit[third]->setPositionX(500);
-	ThirdBit[third]->setPositionY(500);
-	SecondBit[second]->setPositionX(530);
-	SecondBit[second]->setPositionY(500);
-	FirstBit[first]->setPositionX(560);
-	FirstBit[first]->setPositionY(500);
-
+	ThirdBit[third]->setPositionX(400);
+	ThirdBit[third]->setPositionY(520);
+	SecondBit[second]->setPositionX(430);
+	SecondBit[second]->setPositionY(520);
+	FirstBit[first]->setPositionX(460);
+	FirstBit[first]->setPositionY(520);
+	FinishUI->setPositionX(0);
+	FinishUI->setPositionY(0);
 	FinishUI->Draw(Renderer);
 	FirstBit[first]->Draw(Renderer);
 	SecondBit[second]->Draw(Renderer);
