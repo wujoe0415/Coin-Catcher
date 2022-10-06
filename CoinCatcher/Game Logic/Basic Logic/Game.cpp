@@ -42,7 +42,7 @@ void Game::InitGame() {
 	currentBombTime = 0;
 	collectedCoinNum = 0;
 	updateBombCycle = 0.8;
-	gameTime = 20; 
+	gameTime = 60; 
 	glfwSetTime(0);
 	isEnd = false;
 }
@@ -103,7 +103,6 @@ void Game::MoveCoin() {
 		coin->Rotation();
 	}
 }
-
 void Game::Draw() {
 	if (isEnd) {
 		ScoreUI->DrawEndUI(*Renderer, collectedCoinNum);
