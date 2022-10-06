@@ -79,17 +79,17 @@ void UI::DrawEndUI(SpriteRenderer& Renderer, int score) {
 }
 
 void UI::InitRender() {
-	ResourceManager::LoadTexture("zero.png", true, "zero");
-	ResourceManager::LoadTexture("one.png", true, "one");
-	ResourceManager::LoadTexture("two.png", true, "two");
-	ResourceManager::LoadTexture("three.png", true, "three");
-	ResourceManager::LoadTexture("four.png", true, "four");
-	ResourceManager::LoadTexture("five.png", true, "five");
-	ResourceManager::LoadTexture("six.png", true, "six");
-	ResourceManager::LoadTexture("seven.png", true, "seven");
-	ResourceManager::LoadTexture("eight.png", true, "eight");
-	ResourceManager::LoadTexture("nine.png", true, "nine");
-	ResourceManager::LoadTexture("FinishUI.png", true, "FinishUI");
+	ResourceManager::LoadTexture("Resources/zero.png", true, "zero");
+	ResourceManager::LoadTexture("Resources/one.png", true, "one");
+	ResourceManager::LoadTexture("Resources/two.png", true, "two");
+	ResourceManager::LoadTexture("Resources/three.png", true, "three");
+	ResourceManager::LoadTexture("Resources/four.png", true, "four");
+	ResourceManager::LoadTexture("Resources/five.png", true, "five");
+	ResourceManager::LoadTexture("Resources/six.png", true, "six");
+	ResourceManager::LoadTexture("Resources/seven.png", true, "seven");
+	ResourceManager::LoadTexture("Resources/eight.png", true, "eight");
+	ResourceManager::LoadTexture("Resources/nine.png", true, "nine");
+	ResourceManager::LoadTexture("Resources/FinishUI.png", true, "FinishUI");
 }
 
 void UI::NumberLoad(vector<Entity*>& vec) {

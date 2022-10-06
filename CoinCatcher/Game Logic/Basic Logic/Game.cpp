@@ -14,9 +14,9 @@ Game::Game() {
 	window = &Window::getInstance();
 	// Inititialize Render Data
 	ResourceManager::LoadShader("quad.vert", "quad.frag", nullptr, "standard");
-	ResourceManager::LoadTexture("miner.png", true, "player");
-	ResourceManager::LoadTexture("diamond.png", true, "coin");
-	ResourceManager::LoadTexture("malware.png", true, "bomb");
+	ResourceManager::LoadTexture("Resources/miner.png", true, "player");
+	ResourceManager::LoadTexture("Resources/diamond.png", true, "coin");
+	ResourceManager::LoadTexture("Resources/malware.png", true, "bomb");
 	glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(window->getWindowWidth()), static_cast<float>(window->getWindowHeight()), 0.0f, -1.0f, 1.0f);
 	ResourceManager::GetShader("standard").Use().SetInteger("standard", 0);
 	ResourceManager::GetShader("standard").SetMatrix4("standard", projection);
@@ -41,7 +41,7 @@ void Game::InitGame() {
 	currentCoinTime = 0;
 	currentBombTime = 0;
 	collectedCoinNum = 0;
-	updateBombCycle = 0;
+	updateBombCycle = 0.8;
 	gameTime = 20; 
 	glfwSetTime(0);
 	isEnd = false;
@@ -93,7 +93,7 @@ void Game::SpawnBomb(float deltaTime) {
 	bombs.push_back(bomb);
 
 	currentBombTime = 0;
-	updateBombCycle = (float)(random % 50) / 100 + 0.5f;
+	updateBombCycle = (float)(random % 80) / 100 + 0.8f;
 }
 
 
