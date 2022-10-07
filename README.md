@@ -2,9 +2,8 @@
 This project is made with OpenGL and C++, and this is an assignment for the NYCU Computer Graphic Introduction.
 Credit to [LearnOpenGL project](https://github.com/JoeyDeVries/LearnOpenGL).
 
-<img src="C:\Users\FX503VM\AppData\Roaming\Typora\typora-user-images\image-20221007205343330.png" alt="image-20221007205343330" style="zoom: 33%;" />
-
-<img src="C:\Users\FX503VM\AppData\Roaming\Typora\typora-user-images\image-20221007205602480.png" alt="image-20221007205602480" style="zoom:33%;" />
+![image](https://user-images.githubusercontent.com/52885558/194559138-8785e93f-30df-444b-ac63-3ee5718d4058.png=300x)
+![image](https://user-images.githubusercontent.com/52885558/194559220-7304ebba-f629-4911-83f2-fc478d7aaca3.png=300x)
 
 # Feaures
 
