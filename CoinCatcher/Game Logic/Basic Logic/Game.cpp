@@ -88,7 +88,6 @@ void Game::SpawnBomb(float deltaTime) {
 	Bomb* bomb = new Bomb(70, 70, "bomb", "standard", 7, ((float)(random % 8) / 10) * 5, 1);
 
 	float spawnX = bomb->getWidth() + (float)((float)(random % 100) / 100) * window->getWindowWidth();
-	std::cout << spawnX << std::endl;
 	bomb->setPositionX(spawnX);
 	bombs.push_back(bomb);
 
