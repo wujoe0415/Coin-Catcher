@@ -1,9 +1,10 @@
 # Coin-Catcher
 This project is made with OpenGL and C++, and this is an assignment for the NYCU Computer Graphic Introduction.
 Credit to [LearnOpenGL project](https://github.com/JoeyDeVries/LearnOpenGL).
-![](https://i.imgur.com/ztq1yhC.png=200x)
 
-![](https://i.imgur.com/XNtIM6S.png=200x)
+![](https://i.imgur.com/ztq1yhC.png=100x)
+
+![](https://i.imgur.com/XNtIM6S.png=100x)
 
 # Feaures
 
